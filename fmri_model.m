@@ -21,9 +21,18 @@ function SPM = fmri_model(EXPT,submat)
     defaults = spm_get_defaults;
     warning off all
     
+    % SPM settings
     SPM.xY.RT = EXPT.TR;
+    SPM.xBF.T = defaults.stats.fmri.fmri_t;
+    SPM.xBF.T0 = defaults.stats.fmri.fmri_t0;
     SPM.xBF.dt = SPM.xY.RT/SPM.xBF.T;
+    SPM.xBF.UNITS   = 'secs';     % time units ('scans', 'secs')
+    SPM.xBF.name    = 'hrf';      % basis function type
+    SPM.xBF.factor = [];
+    SPM.xBF.Volterra = 1;
     SPM.xBF = spm_get_bf(SPM.xBF);
+    SPM.xGX.iGXcalc = 'none';     % global intensity normalization (note: 'none' actually means 'session-specific')
+    SPM.xVi.form    = 'AR(1)';    % correct for serial correlations ('none', 'AR(1)')
     
     for sub = submat;
         
@@ -47,21 +56,20 @@ function SPM = fmri_model(EXPT,submat)
                 SPM.Sess(i).C.name{j} = ['movement',num2str(j)];
             end
             
-            % load regressor info (contains three cell arrays: names, onsets and durations)
+            % load regressor info (names, onsets and durations)
             reg = parse_para(EXPT.subject(subj).para{i},EXPT.TR);
             
             % configure the input structure array
             for j=1:numel(reg.onsets)
                 U.name = reg.names{j};
                 U.ons  = reg.onsets{j}(:);
-                U.dur  = reg.durations{j}(:) .* ones(size(U.ons));
+                U.dur  = reg.durations(j) .* ones(size(U.ons));
                 U.P    = struct('name', 'none', 'h', 0);                
                 SPM.Sess(i).U(j) = U;
             end
             
             % high-pass filter
             SPM.xX.K(i).HParam = defaults.stats.fmri.hpf;
-            
         end
         
         delete('mask.img'); % make spm re-use directory without prompting

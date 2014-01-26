@@ -1,12 +1,10 @@
-function files = fmri_get(EXPT,subj,filename)
+function files = fmri_get(filename)
     
     % Get filenames for nifti images.
     %
-    % USAGE: files = fmri_get(EXPT,subj,filename)
+    % USAGE: files = fmri_get(filename)
     %
     % INPUTS:
-    %   EXPT - experiment object
-    %   subj - subject number
     %   filename - regular expression specifying set of file names
     %
     % OUPUTS:
@@ -14,6 +12,5 @@ function files = fmri_get(EXPT,subj,filename)
     %
     % Sam Gershman, Jan 2014
     
-    filedir = fullfile(EXPT.data_dir,EXPT.subject(subj).name,'nii');
     files = dir(fullfile(filedir,filename));
     files = dir2char(files,filedir);

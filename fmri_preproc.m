@@ -36,6 +36,10 @@ function fmri_preproc(EXPT,subj,tasks)
         return
     end
     
+    S = EXPT.subject(subj);
+    adir = fullfile(EXPT.analysis_dir,S.name);  % make analysis directory
+    if ~isdir(adir); mkdir(adir); end
+    
     switch tasks
         case 'all'
             % Do everything
@@ -48,42 +52,43 @@ function fmri_preproc(EXPT,subj,tasks)
             
             disp('Converting dicoms to nifti...');
             
-            dicomdir = fullfile(EXPT.data_dir,EXPT.subject(subj).name,'dicom');
-            niftidir = fullfile(EXPT.data_dir,EXPT.subject(subj).name,'nii');
-            files = dir(fullfile(dicomdir,'*.dcm'));
-            files = dir2char(files,dicomdir);
-            hdr = spm_dicom_headers(files);
             curdir = pwd;
-            if ~isdir(niftidir); mkdir(niftidir); end
-            cd(niftidir);
-            spm_dicom_convert(hdr,'all','flat','nii');
+            for r = 1:length(S.functional)
+                dicomdir = S.functional(r).dicomdir;
+                niftidir = S.functional(r).niftidir;
+                files = dir(fullfile(dicomdir,'*.dcm'));
+                files = dir2char(files,dicomdir);
+                hdr = spm_dicom_headers(files);
+                if ~isdir(niftidir); mkdir(niftidir); end
+                cd(niftidir);
+                spm_dicom_convert(hdr,'all','flat','nii');
+            end
             cd(curdir);
         
         case 'realign'
-            % This step does motion correction. Only a mean image is
+            % This step does motion correction. Only a mean image (mean_*) is
             % resliced; all other images have their headers modified.
             
             disp('Realigning...')
             
-            for r = 1:length(EXPT.functional)
-                files{r,1} = fmri_get(EXPT,subj,['*-',num2str(EXPT.subject(subj).functional(r)),'-*']);
+            % get nifti filenames
+            for r = 1:length(S.functional)
+                niftidir = S.functional(r).niftidir;
+                run = S.functional(r).run;
+                files{r,1} = fmri_get(fullfile(niftidir,['*-',num2str(run),'-*']));
             end
             
-            % if we want this session to be aligned to a "source" session
-            if ~isempty(EXPT.subject(subj).source)
-                mean_source = fmri_get(EXPT,EXPT.subject(subj).source,'mean*');
-                files = [mean_source; files];
-            end
-            
-            spm_realign(files);
+            spm_realign(files); % run realignment
             spm_reslice(files,struct('mean',1,'which',0));  % write mean image
             
-            % move the movement parameter files to analysis directory
-            rp = fmri_get(EXPT,subj,'rp_*');
-            E = fullfile(EXPT.analysis_dir,EXPT.subject(subj),'movement');
+            % move the movement parameter files (rp*) to analysis directory
+            E = fullfile(EXPT.analysis_dir,S.name,'movement');
             if ~isdir(E); mkdir(E); end
-            for j = 1:size(rp,1)
-                movefile(rp(j,:),E);
+            for r = 1:length(S.functional)
+                niftidir = S.functional(r).niftidir;
+                run = S.functional(r).run;
+                rp = fmri_get(fullfile(niftidir,['rp*-',num2str(run),'-*']));
+                movefile(rp,fullfile(E,['rp',num2str(r)]));
             end
 
         case 'coregister'
@@ -96,14 +101,20 @@ function fmri_preproc(EXPT,subj,tasks)
             % 1) mean functional -> anatomical
             % use normalied mutual information for registering images from
             % different modalities (epi -> T1)
-            mean_epi = fmri_get(EXPT,subj,'mean*');
-            anatomical = fmri_get(EXPT,subj,['*-',num2str(EXPT.subject(subj).anatomical),'-*']);
+            niftidir = S.functional(1).niftidir;
+            mean_epi = fmri_get(fullfile(niftidir,'mean*'));
+            run = S.anatomical.run;
+            anatomical = fmri_get(fullfile(S.anatomical.niftidir,['*-',num2str(run),'-*']));
             T1 = spm_coreg(anatomical,mean_epi,struct('cost_fun','nmi','graphics',0));
-            for r = 1:length(EXPT.subject(subj).functional)
-                P{r,1} = fmri_get(EXPT,subj,['*-',num2str(EXPT.subject(subj).functional(r)),'-*']);
+            
+            % transform all other functionals
+            for r = 1:length(S.functional)
+                niftidir = S.functional(r).niftidir;
+                run = S.functional(r).run;
+                P{r,1} = fmri_get(fullfile(niftidir,['*-',num2str(run),'-*']));
             end
             P = [P; mean_epi];
-            coreg_apply(P,T1);   % transform all other functionals
+            coreg_apply(P,T1);
             
             % 2) anatomical -> MNI template
             % use normalied cross-correlation for registering images from
@@ -114,22 +125,26 @@ function fmri_preproc(EXPT,subj,tasks)
             coreg_apply(P,T2);   % transform all other functionals and anatomical
             
             % save coregistration parameters
-            adir = fullfile(EXPT.analysis_dir,EXPT.subject(subj).name);
-            if ~isdir(adir); mkdir(adir); end
             save(fullfile(adir,'coreg_params'),'T1','T2');
             
         case 'normalize'
             % Segment and normalize anatomical image to MNI template.
+            % Functionals and anatomical prepended with 'w'.
             
             disp('Normalizing anatomical...')
             
-            anatomical = fmri_get(EXPT,subj,['*-',num2str(EXPT.subject(subj).anatomical),'-*']);
-            res = spm_preproc(anatomical);  % compute warping parameters
+            run = S.anatomical.run;
+            anatomical = fmri_get(fullfile(S.anatomical.niftidir,['*-',num2str(run),'-*']));
+            res = spm_preproc(anatomical);   % compute warping parameters
             sn = spm_prep2sn(res);
             spm_write_sn(anatomical,sn);     % normalize anatomical using the warp parameters already calculated
-            for r = 1:length(EXPT.subject(subj).functional)
-                P = fmri_get(EXPT,subj,['*-',num2str(EXPT.subject(subj).functional(r)),'-*']);
-                spm_write_sn(P,sn);          % normalize functionals
+            
+            % normalize functionals
+            for r = 1:length(S.functional)
+                niftidir = S.functional(r).niftidir;
+                run = S.functional(r).run;
+                P = fmri_get(fullfile(niftidir,['*-',num2str(run),'-*']));
+                spm_write_sn(P,sn);
             end
             
             adir = fullfile(EXPT.analysis_dir,EXPT.subject(subj).name);
@@ -138,11 +153,14 @@ function fmri_preproc(EXPT,subj,tasks)
             
         case 'smooth'
             % Smooth images with Gaussian kernel (width specified in EXPT.fwhm).
+            % Functionals prepended with 's'.
             
-            disp('Smoothing..');
+            disp('Smoothing...');
             
-            for r = 1:length(EXPT.subject(subj).functional)
-                P = fmri_get(EXPT,subj,['w*-',num2str(EXPT.subject(subj).functional(r)),'-*']);
+            for r = 1:length(S.functional)
+                niftidir = S.functional(r).niftidir;
+                run = S.functional(r).run;
+                P = fmri_get(fullfile(niftidir,['w*-',num2str(run),'-*']));
                 for j = 1:size(P,1)
                     [pth,nam,ext,num] = spm_fileparts(P(j,:));
                     u = fullfile(pth,['s' nam ext num]);    % preprend 's' to filenames
