@@ -57,13 +57,24 @@ function fmri_preproc(EXPT,subj,tasks)
                 disp(['run ',num2str(r)]);
                 dicomdir = S.functional(r).dicomdir;
                 niftidir = S.functional(r).niftidir;
-                files = dir(fullfile(dicomdir,'*.dcm'));
+                run = S.functional(r).run;
+                files = dir(fullfile(dicomdir,['*-',run,'-*.dcm']));
                 files = dir2char(files,dicomdir);
                 hdr = spm_dicom_headers(files);
                 if ~isdir(niftidir); mkdir(niftidir); end
                 cd(niftidir);
                 spm_dicom_convert(hdr,'all','flat','nii');
             end
+            disp('anatomical');
+            dicomdir = S.anatomical.dicomdir;
+            niftidir = S.anatomical.niftidir;
+            run = S.anatomical.run;
+            files = dir(fullfile(dicomdir,['*-',run,'-*.dcm']));
+            files = dir2char(files,dicomdir);
+            hdr = spm_dicom_headers(files);
+            if ~isdir(niftidir); mkdir(niftidir); end
+            cd(niftidir);
+            spm_dicom_convert(hdr,'all','flat','nii');
             cd(curdir);
         
         case 'realign'
