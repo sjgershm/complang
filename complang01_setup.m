@@ -10,6 +10,9 @@ function EXPT = complang01_setup
     EXPT.analysis_dir = '/mindhive/nklab/projects/MACKEREL/analysis';
     EXPT.data_dir = '/mindhive/nklab/projects/MACKEREL/data';
     
+    addpath(genpath('/mindhive/nklab/projects/compositionality_lang/scripts/spm8'));
+    addpath('/mindhive/nklab/projects/MACKEREL/complang');
+    
     % subject info
     EXPT.subject(1).name = 'subj01';
     dicomdir1 = fullfile(EXPT.data_dir,'subj01','dicoms');
