@@ -54,6 +54,7 @@ function fmri_preproc(EXPT,subj,tasks)
             
             curdir = pwd;
             for r = 1:length(S.functional)
+                disp(['run ',num2str(r)]);
                 dicomdir = S.functional(r).dicomdir;
                 niftidir = S.functional(r).niftidir;
                 files = dir(fullfile(dicomdir,'*.dcm'));
