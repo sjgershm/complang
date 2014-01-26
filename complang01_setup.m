@@ -12,9 +12,9 @@ function EXPT = complang01_setup
     
     % subject info
     EXPT.subject(1).name = 'subj01';
-    dicomdir1 = fullfile(EXPT.data_dir,'subj01','dicom');
+    dicomdir1 = fullfile(EXPT.data_dir,'subj01','dicoms');
     niftidir1 = fullfile(EXPT.data_dir,'subj01','nii');
-    dicomdir2 = fullfile(EXPT.data_dir,'subj01b','dicom');
+    dicomdir2 = fullfile(EXPT.data_dir,'subj01b','dicoms');
     niftidir2 = fullfile(EXPT.data_dir,'subj01b','nii');
     EXPT.subject(1).functional(1).run = 9;
     EXPT.subject(1).functional(1).name = 'TargetWords1';
