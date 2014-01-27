@@ -58,7 +58,7 @@ function fmri_preproc(EXPT,subj,tasks)
                 dicomdir = S.functional(r).dicomdir;
                 niftidir = S.functional(r).niftidir;
                 run = S.functional(r).run;
-                files = dir(fullfile(dicomdir,sprintf('*-%d-*',run)));
+                files = dir(fullfile(dicomdir,sprintf('f*-%d-*',run)));
                 files = dir2char(files,dicomdir);
                 hdr = spm_dicom_headers(files);
                 if ~isdir(niftidir); mkdir(niftidir);  end
@@ -89,7 +89,7 @@ function fmri_preproc(EXPT,subj,tasks)
             for r = 1:length(S.functional)
                 niftidir = S.functional(r).niftidir;
                 run = S.functional(r).run;
-                files{r,1} = fmri_get(fullfile(niftidir,sprintf('*-%3.4d-*',run)));
+                files{r,1} = fmri_get(fullfile(niftidir,sprintf('f*-%3.4d-*',run)));
             end
             
             spm_realign(files); % run realignment
@@ -157,7 +157,7 @@ function fmri_preproc(EXPT,subj,tasks)
             for r = 1:length(S.functional)
                 niftidir = S.functional(r).niftidir;
                 run = S.functional(r).run;
-                P = fmri_get(fullfile(niftidir,sprintf('*-%3.4d-*',run)));
+                P = fmri_get(fullfile(niftidir,sprintf('f*-%3.4d-*',run)));
                 spm_write_sn(P,sn);
             end
             
