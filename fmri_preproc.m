@@ -58,7 +58,7 @@ function fmri_preproc(EXPT,subj,tasks)
                 dicomdir = S.functional(r).dicomdir;
                 niftidir = S.functional(r).niftidir;
                 run = S.functional(r).run;
-                files = dir(fullfile(dicomdir,sprintf('f*-%d-*',run)));
+                files = dir(fullfile(dicomdir,sprintf('*-%d-*',run)));
                 files = dir2char(files,dicomdir);
                 hdr = spm_dicom_headers(files);
                 if ~isdir(niftidir); mkdir(niftidir);  end
