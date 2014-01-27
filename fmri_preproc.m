@@ -58,7 +58,7 @@ function fmri_preproc(EXPT,subj,tasks)
                 dicomdir = S.functional(r).dicomdir;
                 niftidir = S.functional(r).niftidir;
                 run = S.functional(r).run;
-                files = dir(fullfile(dicomdir,sprintf('*-%3.4d-*',run)));
+                files = dir(fullfile(dicomdir,sprintf('*-%d-*',run)));
                 files = dir2char(files,dicomdir);
                 hdr = spm_dicom_headers(files);
                 if ~isdir(niftidir); mkdir(niftidir); end
@@ -69,7 +69,7 @@ function fmri_preproc(EXPT,subj,tasks)
             dicomdir = S.anatomical.dicomdir;
             niftidir = S.anatomical.niftidir;
             run = S.anatomical.run;
-            files = dir(fullfile(dicomdir,sprintf('*-%3.4d-*',run)));
+            files = dir(fullfile(dicomdir,sprintf('*-%d-*',run)));
             files = dir2char(files,dicomdir);
             hdr = spm_dicom_headers(files);
             if ~isdir(niftidir); mkdir(niftidir); end
