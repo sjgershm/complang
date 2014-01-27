@@ -87,7 +87,7 @@ function fmri_preproc(EXPT,subj,tasks)
             for r = 1:length(S.functional)
                 niftidir = S.functional(r).niftidir;
                 run = S.functional(r).run;
-                files{r,1} = fmri_get(fullfile(niftidir,['*-',num2str(run),'-*']));
+                files{r,1} = fmri_get(fullfile(niftidir,sprintf('*-%3.4d-*',run)));
             end
             
             spm_realign(files); % run realignment
