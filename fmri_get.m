@@ -13,5 +13,5 @@ function files = fmri_get(filename)
     % Sam Gershman, Jan 2014
     
     files = dir(filename);
-    filedir = fileparts(filename)
+    filedir = fileparts(filename);
     files = dir2char(files,filedir);
