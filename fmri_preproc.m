@@ -62,8 +62,8 @@ function fmri_preproc(EXPT,subj,tasks)
                 files = dir2char(files,dicomdir);
                 hdr = spm_dicom_headers(files);
                 if ~isdir(niftidir); mkdir(niftidir);  end
-                delete(fullfile(niftidir('w*')));
-                delete(fullfile(niftidir('s*')));
+                delete(fullfile(niftidir,'w*'));
+                delete(fullfile(niftidir,'s*'));
                 cd(niftidir);
                 spm_dicom_convert(hdr,'all','flat','nii');
             end
