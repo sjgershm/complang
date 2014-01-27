@@ -58,7 +58,7 @@ function fmri_preproc(EXPT,subj,tasks)
                 dicomdir = S.functional(r).dicomdir;
                 niftidir = S.functional(r).niftidir;
                 run = S.functional(r).run;
-                files = dir(fullfile(dicomdir,['*-',num2str(run),'-*.dcm']));
+                files = dir(fullfile(dicomdir,sprintf('*-%3.4d-*',run)));
                 files = dir2char(files,dicomdir);
                 hdr = spm_dicom_headers(files);
                 if ~isdir(niftidir); mkdir(niftidir); end
@@ -69,7 +69,7 @@ function fmri_preproc(EXPT,subj,tasks)
             dicomdir = S.anatomical.dicomdir;
             niftidir = S.anatomical.niftidir;
             run = S.anatomical.run;
-            files = dir(fullfile(dicomdir,['*-',num2str(run),'-*.dcm']));
+            files = dir(fullfile(dicomdir,sprintf('*-%3.4d-*',run)));
             files = dir2char(files,dicomdir);
             hdr = spm_dicom_headers(files);
             if ~isdir(niftidir); mkdir(niftidir); end
@@ -99,7 +99,7 @@ function fmri_preproc(EXPT,subj,tasks)
             for r = 1:length(S.functional)
                 niftidir = S.functional(r).niftidir;
                 run = S.functional(r).run;
-                rp = fmri_get(fullfile(niftidir,['rp*-',num2str(run),'-*']));
+                rp = fmri_get(fullfile(niftidir,sprintf('rp*-%3.4d-*',run)));
                 movefile(rp,fullfile(E,['rp',num2str(r)]));
             end
 
@@ -116,14 +116,14 @@ function fmri_preproc(EXPT,subj,tasks)
             niftidir = S.functional(1).niftidir;
             mean_epi = fmri_get(fullfile(niftidir,'mean*'));
             run = S.anatomical.run;
-            anatomical = fmri_get(fullfile(S.anatomical.niftidir,['*-',num2str(run),'-*']));
+            anatomical = fmri_get(fullfile(S.anatomical.niftidir,sprintf('*-%3.4d-*',run)));
             T1 = spm_coreg(anatomical,mean_epi,struct('cost_fun','nmi','graphics',0));
             
             % transform all other functionals
             for r = 1:length(S.functional)
                 niftidir = S.functional(r).niftidir;
                 run = S.functional(r).run;
-                P{r,1} = fmri_get(fullfile(niftidir,['*-',num2str(run),'-*']));
+                P{r,1} = fmri_get(fullfile(niftidir,sprintf('*-%3.4d-*',run)));
             end
             P = [P; mean_epi];
             coreg_apply(P,T1);
@@ -146,7 +146,7 @@ function fmri_preproc(EXPT,subj,tasks)
             disp('Normalizing anatomical...')
             
             run = S.anatomical.run;
-            anatomical = fmri_get(fullfile(S.anatomical.niftidir,['*-',num2str(run),'-*']));
+            anatomical = fmri_get(fullfile(S.anatomical.niftidir,sprintf('*-%3.4d-*',run)));
             res = spm_preproc(anatomical);   % compute warping parameters
             sn = spm_prep2sn(res);
             spm_write_sn(anatomical,sn);     % normalize anatomical using the warp parameters already calculated
@@ -155,7 +155,7 @@ function fmri_preproc(EXPT,subj,tasks)
             for r = 1:length(S.functional)
                 niftidir = S.functional(r).niftidir;
                 run = S.functional(r).run;
-                P = fmri_get(fullfile(niftidir,['*-',num2str(run),'-*']));
+                P = fmri_get(fullfile(niftidir,sprintf('*-%3.4d-*',run)));
                 spm_write_sn(P,sn);
             end
             
@@ -172,7 +172,7 @@ function fmri_preproc(EXPT,subj,tasks)
             for r = 1:length(S.functional)
                 niftidir = S.functional(r).niftidir;
                 run = S.functional(r).run;
-                P = fmri_get(fullfile(niftidir,['w*-',num2str(run),'-*']));
+                P = fmri_get(fullfile(niftidir,sprintf('w*-%3.4d-*',run)));
                 for j = 1:size(P,1)
                     [pth,nam,ext,num] = spm_fileparts(P(j,:));
                     u = fullfile(pth,['s' nam ext num]);    % preprend 's' to filenames
