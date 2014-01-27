@@ -12,7 +12,7 @@ function coreg_apply(P,T)
     
     M  = spm_matrix(T);
     for j=1:numel(P)
-        for k = 1:size(P,1)
+        for k = 1:size(P{j},1)
             MM = spm_get_space(P{j}(k,:));
             spm_get_space(P{j}(k,:),M\MM);
         end
