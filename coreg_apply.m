@@ -11,10 +11,9 @@ function coreg_apply(P,T)
     % Sam Gershman, Jan 2014
     
     M  = spm_matrix(T);
-    MM = zeros(4,4,numel(P));
+    P = P(:);
+    MM = zeros(4,4);
     for j=1:numel(P)
-        MM(:,:,j) = spm_get_space(P{j});
-    end
-    for j=1:numel(P)
-        spm_get_space(P{j}, M\MM(:,:,j));
+        MM = spm_get_space(P{j});
+        spm_get_space(P{j},M\MM);
     end
