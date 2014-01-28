@@ -69,7 +69,7 @@ function SPM = fmri_model(EXPT,model,submat)
         for i = 1:length(S.functional)
             
             % load movement regressors
-            mrp = fullfile(EXPT.analysis_dir,S,'movement',['rp_',num2str(i)]);
+            mrp = fullfile(EXPT.analysis_dir,S.name,'movement',['rp_',num2str(i)]);
             SPM.Sess(i).C.C = load(mrp);
             for j = 1:size(SPM.Sess(i).C.C,2)
                 SPM.Sess(i).C.name{j} = ['movement',num2str(j)];
