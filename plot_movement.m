@@ -1,6 +1,6 @@
 function plot_movement(EXPT,subj)
     
-    %Plot movement parameters
+    % Plot movement parameters
     %
     % USAGE: plot_movement(EXPT,subj)
     
