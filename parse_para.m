@@ -34,7 +34,7 @@ function P = parse_para(filename,TR)
     event = [];
     
     while ~feof(f)
-        text = fgetl(f);
+        text = strtrim(fgetl(f));
         if ~isempty(text)
             if text(1) == '#'
                 fieldname = text(2:end);
