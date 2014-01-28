@@ -52,8 +52,8 @@ function SPM = fmri_model(EXPT,model,submat)
                 bad(i) = 0;
             end
         end
-        para(bad) = [];
-        EXPT.subject(subj).functional(bad) = [];
+        para(bad==1) = [];
+        EXPT.subject(subj).functional(bad==1) = [];
         
         % specify functional image files
         for r = 1:length(EXPT.subject(subj).functional)
