@@ -9,7 +9,7 @@ function EXPT = complang01_setup
     EXPT.fwhm = 4;      % full-width half maximum for smoothing
     EXPT.analysis_dir = '/mindhive/nklab/projects/MACKEREL/analysis';
     EXPT.data_dir = '/mindhive/nklab/projects/MACKEREL/data';
-    EXPT.modelfun = @(EXPT,subj,model) complang01_model;
+    EXPT.modelfun = @(EXPT,subj,model) complang01_model(EXPT,subj,model);
     
     addpath(genpath('/mindhive/nklab/projects/compositionality_lang/scripts/spm8'));
     addpath('/mindhive/nklab/projects/MACKEREL/complang');
