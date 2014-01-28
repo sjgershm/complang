@@ -105,7 +105,7 @@ function EXPT = complang01_setup
     EXPT.subject(1).functional(13).name = 'Constrained1';
     EXPT.subject(1).functional(13).dicomdir = dicomdir2;
     EXPT.subject(1).functional(13).niftidir = niftidir2;
-    EXPT.subject(1).functional(13).para{1} = fullfile(paradir2,'subj01b_8_ICGT.para');
+    EXPT.subject(1).functional(13).para{1} = fullfile(paradir2,'subj01b_08_ICGT.para');
     
     EXPT.subject(1).functional(14).run = 10;
     EXPT.subject(1).functional(14).name = 'Diverse1';
