@@ -45,7 +45,7 @@ function SPM = fmri_model(EXPT,model,submat)
         cd(modeldir);
         
         % get para file names and toss out runs with no para file
-        para = EXPT.modelfun(EXPT,subj,model);
+        para = EXPT.modelfun(EXPT,model);
         for i = 1:length(para)
             if isempty(para{i})
                 bad(i) = 1;
@@ -76,7 +76,7 @@ function SPM = fmri_model(EXPT,model,submat)
             end
             
             % load regressor info (names, onsets and durations)
-            reg = parse_para(para{i},EXPT.TR);
+            reg = parse_para(para{subj,i},EXPT.TR);
             
             % configure the input structure array
             n = 0;
