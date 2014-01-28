@@ -38,7 +38,7 @@ function fmri_preproc(EXPT,subj,tasks)
     
     S = EXPT.subject(subj);
     adir = fullfile(EXPT.analysis_dir,S.name);  % make analysis directory
-    if ~isdir(adir); mkdir(adir); end
+    if ~exist(adir,'dir'); mkdir(adir); end
     
     switch tasks
         case 'all'
@@ -61,7 +61,7 @@ function fmri_preproc(EXPT,subj,tasks)
                 files = dir(fullfile(dicomdir,sprintf('*-%d-*',run)));
                 files = dir2char(files,dicomdir);
                 hdr = spm_dicom_headers(files);
-                if ~isdir(niftidir); mkdir(niftidir);  end
+                if ~exist(niftidir,'dir'); mkdir(niftidir);  end
                 delete(fullfile(niftidir,'w*'));
                 delete(fullfile(niftidir,'s*'));
                 cd(niftidir);
@@ -74,7 +74,7 @@ function fmri_preproc(EXPT,subj,tasks)
             files = dir(fullfile(dicomdir,sprintf('*-%d-*',run)));
             files = dir2char(files,dicomdir);
             hdr = spm_dicom_headers(files);
-            if ~isdir(niftidir); mkdir(niftidir); end
+            if ~exist(niftidir,'dir'); mkdir(niftidir); end
             cd(niftidir);
             spm_dicom_convert(hdr,'all','flat','nii');
             cd(curdir);
@@ -97,7 +97,7 @@ function fmri_preproc(EXPT,subj,tasks)
             
             % move the movement parameter files (rp*) to analysis directory
             E = fullfile(EXPT.analysis_dir,S.name,'movement');
-            if ~isdir(E); mkdir(E); end
+            if ~exist(E,'dir'); mkdir(E); end
             for r = 1:length(S.functional)
                 niftidir = S.functional(r).niftidir;
                 run = S.functional(r).run;
@@ -162,7 +162,7 @@ function fmri_preproc(EXPT,subj,tasks)
             end
             
             adir = fullfile(EXPT.analysis_dir,EXPT.subject(subj).name);
-            if ~isdir(adir); mkdir(adir); end
+            if ~exist(adir,'dir'); mkdir(adir); end
             save(fullfile(adir,'normalization_params'),'sn');
             
         case 'smooth'

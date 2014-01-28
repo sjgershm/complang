@@ -40,7 +40,7 @@ function SPM = fmri_model(EXPT,model,submat)
         S = EXPT.subject(subj);
         disp(S.name);
         modeldir = fullfile(EXPT.analysis_dir,S.name,['model',num2str(model)]);
-        if isdir(modeldir); rmdir(modeldir); end
+        if exist(modeldir,'dir'); rmdir(modeldir); end
         mkdir(modeldir);
         cd(modeldir);
         
