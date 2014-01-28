@@ -35,7 +35,7 @@ function SPM = fmri_model(EXPT,model,submat)
     SPM.xGX.iGXcalc = 'none';     % global intensity normalization (note: 'none' actually means 'session-specific')
     SPM.xVi.form    = 'AR(1)';    % correct for serial correlations ('none', 'AR(1)')
     
-    for sub = submat;
+    for subj = submat;
         
         disp(EXPT.subject(subj).name);
         cd(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,['model',num2str(model)]));
