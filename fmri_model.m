@@ -71,10 +71,9 @@ function SPM = fmri_model(EXPT,model,submat)
                 for j=1:numel(reg.onsets)
                     if ~isempty(reg.onsets{j})
                         n = n + 1;
-                        ix = reg.events{j};
-                        U.name = {reg.names{ix}};
+                        U.name = {reg.names{j}};
                         U.ons  = reg.onsets{j}(:);
-                        U.dur  = reg.durations(ix) .* ones(size(U.ons));
+                        U.dur  = reg.durations(j) .* ones(size(U.ons));
                         U.P    = struct('name', 'none', 'h', 0);
                         SPM.Sess(ii).U(n) = U;
                     end

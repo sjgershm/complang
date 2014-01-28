@@ -65,8 +65,10 @@ function P = parse_para(filename,TR)
         P.durations = P.durations*TR;
     end
     
-    P.events = unique(event);
-    P.onsets = cell(1,length(P.events));
-    for i = 1:length(ons)
-        P.onsets{P.events==event(i)}(end+1) = ons(i);
+    u = unique(event);
+    P.onsets = cell(1,length(u));
+    for i = 1:length(u)
+        P.onsets{i} = ons(event==u(i));
     end
+    P.names = P.names(u);
+    P.durations = P.durations(u);
