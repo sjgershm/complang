@@ -1,11 +1,12 @@
-function SPM = fmri_model(EXPT,submat)
+function SPM = fmri_model(EXPT,model,submat)
     
     % First-level GLM analysis.
     %
-    % USAGE: SPM = fmri_model(EXPT,[submat])
+    % USAGE: SPM = fmri_model(EXPT,model,[submat])
     %
     % INPUTS:
     %   EXPT object
+    %   model - model number
     %   submat (optional) - vector of subjects to estimate (default: all subjects)
     %
     % OUTPUTS:
@@ -13,7 +14,7 @@ function SPM = fmri_model(EXPT,submat)
     %
     % Sam Gershman, Jan 2014
     
-    if nargin < 2 || isempty(submat)
+    if nargin < 3 || isempty(submat)
         submat = 1:length(EXPT.subject);
     end
     
@@ -37,7 +38,19 @@ function SPM = fmri_model(EXPT,submat)
     for sub = submat;
         
         disp(EXPT.subject(subj).name);
-        cd(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name));
+        cd(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,['model',num2str(model)]));
+        
+        % get para file names and toss out runs with no para file
+        para = complang01_model(EXPT,subj,model);
+        for i = 1:length(para)
+            if isempty(para{i})
+                bad(i) = 1;
+            else
+                bad(i) = 0;
+            end
+        end
+        para(bad) = [];
+        EXPT.subject(subj).functional(bad) = [];
         
         % specify functional image files
         for r = 1:length(EXPT.subject(subj).functional)
@@ -47,7 +60,7 @@ function SPM = fmri_model(EXPT,submat)
         SPM.xY.P = vertcat(SPM.xY.P{:});
         
         %loop through sessions
-        for i = 1:length(EXPT.runs(subj).functional)
+        for i = 1:length(EXPT.subject(subj).functional)
             
             % load movement regressors
             mrp = fullfile(EXPT.analysis_dir,EXPT.subject(subj),'movement',['rp_',num2str(i)]);
@@ -57,15 +70,19 @@ function SPM = fmri_model(EXPT,submat)
             end
             
             % load regressor info (names, onsets and durations)
-            reg = parse_para(EXPT.subject(subj).para{i},EXPT.TR);
+            reg = parse_para(para{i},EXPT.TR);
             
             % configure the input structure array
+            n = 0;
             for j=1:numel(reg.onsets)
-                U.name = reg.names{j};
-                U.ons  = reg.onsets{j}(:);
-                U.dur  = reg.durations(j) .* ones(size(U.ons));
-                U.P    = struct('name', 'none', 'h', 0);                
-                SPM.Sess(i).U(j) = U;
+                if ~isempty(reg.onsets{j})
+                    n = n + 1;
+                    U.name = reg.names{j};
+                    U.ons  = reg.onsets{j}(:);
+                    U.dur  = reg.durations(j) .* ones(size(U.ons));
+                    U.P    = struct('name', 'none', 'h', 0);
+                    SPM.Sess(i).U(n) = U;
+                end
             end
             
             % high-pass filter
