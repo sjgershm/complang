@@ -37,8 +37,9 @@ function SPM = fmri_model(EXPT,model,submat)
     
     for subj = submat;
         
-        disp(EXPT.subject(subj).name);
-        modeldir = fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,['model',num2str(model)]);
+        S = EXPT.subject(subj);
+        disp(S.name);
+        modeldir = fullfile(EXPT.analysis_dir,S.name,['model',num2str(model)]);
         if isdir(modeldir); rmdir(modeldir); end
         mkdir(modeldir);
         cd(modeldir);
@@ -53,20 +54,22 @@ function SPM = fmri_model(EXPT,model,submat)
             end
         end
         para(bad==1) = [];
-        EXPT.subject(subj).functional(bad==1) = [];
+        S.functional(bad==1) = [];
         
         % specify functional image files
-        for r = 1:length(EXPT.subject(subj).functional)
-            SPM.xY.P{r} = fmri_get(EXPT,subj,['sw*-',num2str(EXPT.subject(subj).functional(r)),'-*']);
+        niftidir = S.functional(r).niftidir;
+        for r = 1:length(S.functional)
+            run = S.functional(r).run;
+            SPM.xY.P{r} = fmri_get(niftidir,sprintf('sw*-%3.4d-*',run));
             SPM.nscan(r) = size(SPM.xY.P{r},1);
         end
         SPM.xY.P = vertcat(SPM.xY.P{:});
         
         %loop through sessions
-        for i = 1:length(EXPT.subject(subj).functional)
+        for i = 1:length(S.functional)
             
             % load movement regressors
-            mrp = fullfile(EXPT.analysis_dir,EXPT.subject(subj),'movement',['rp_',num2str(i)]);
+            mrp = fullfile(EXPT.analysis_dir,S,'movement',['rp_',num2str(i)]);
             SPM.Sess(i).C.C = load(mrp);
             for j = 1:size(SPM.Sess(i).C.C,2)
                 SPM.Sess(i).C.name{j} = ['movement',num2str(j)];
