@@ -41,7 +41,7 @@ function SPM = fmri_model(EXPT,model,submat)
         cd(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,['model',num2str(model)]));
         
         % get para file names and toss out runs with no para file
-        para = complang01_model(EXPT,subj,model);
+        para = EXPT.modelfun(EXPT,subj,model);
         for i = 1:length(para)
             if isempty(para{i})
                 bad(i) = 1;
