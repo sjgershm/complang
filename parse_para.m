@@ -16,6 +16,7 @@ function P = parse_para(filename,TR)
     %           onsets (in seconds) for the corresponding event
     %           .names - cell array containing the name of each event
     %           .durations - vector containing the duration (in seconds) of each event
+    %           .events - vector containing event indices
     %
     % NOTE:
     %   *.para files have the following format: there are three segments of
@@ -64,8 +65,8 @@ function P = parse_para(filename,TR)
         P.durations = P.durations*TR;
     end
     
-    u = unique(event);
-    P.onsets = cell(1,length(u));
+    P.events = unique(event);
+    P.onsets = cell(1,length(P.events));
     for i = 1:length(ons)
-        P.onsets{u==event(i)}(end+1) = ons(i);
+        P.onsets{P.events==event(i)}(end+1) = ons(i);
     end
