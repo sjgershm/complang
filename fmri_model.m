@@ -44,58 +44,48 @@ function SPM = fmri_model(EXPT,model,submat)
         mkdir(modeldir);
         cd(modeldir);
         
-        % get para file names and toss out runs with no para file
-        para = EXPT.modelfun(EXPT,model);
-        for i = 1:length(para)
-            if isempty(para{i})
-                bad(i) = 1;
-            else
-                bad(i) = 0;
-            end
-        end
-        para(bad==1) = [];
-        S.functional(bad==1) = [];
-        
-        % specify functional image files
-        for r = 1:length(S.functional)
-            niftidir = S.functional(r).niftidir;
-            run = S.functional(r).run;
-            SPM.xY.P{r,1} = fmri_get(fullfile(niftidir,sprintf('sw*-%3.4d-*',run)));
-            SPM.nscan(r) = size(SPM.xY.P{r},1);
-        end
-        SPM.xY.P = char(SPM.xY.P);
-        
-        %loop through sessions
+        ii = 0;
         for i = 1:length(S.functional)
             
-            % load movement regressors
-            mrp = fullfile(EXPT.analysis_dir,S.name,'movement',['rp_',num2str(i)]);
-            SPM.Sess(i).C.C = load(mrp);
-            for j = 1:size(SPM.Sess(i).C.C,2)
-                SPM.Sess(i).C.name{j} = ['movement',num2str(j)];
-            end
-            
             % load regressor info (names, onsets and durations)
-            reg = parse_para(para{subj,i},EXPT.TR);
-            
-            % configure the input structure array
-            n = 0;
-            for j=1:numel(reg.onsets)
-                if ~isempty(reg.onsets{j})
-                    n = n + 1;
-                    U.name = reg.names{j};
-                    U.ons  = reg.onsets{j}(:);
-                    U.dur  = reg.durations(j) .* ones(size(U.ons));
-                    U.P    = struct('name', 'none', 'h', 0);
-                    SPM.Sess(i).U(n) = U;
+            para = S.functional(i).para{model};
+            if ~isempty(para)
+                ii = ii + 1;
+                reg = parse_para(para,EXPT.TR);
+                
+                % specify image file names
+                niftidir = S.functional(i).niftidir;
+                run = S.functional(i).run;
+                SPM.xY.P{ii,1} = fmri_get(fullfile(niftidir,sprintf('sw*-%3.4d-*',run)));
+                SPM.nscan(ii) = size(SPM.xY.P{ii},1);
+                
+                % load movement regressors
+                mrp = fullfile(EXPT.analysis_dir,S.name,'movement',['rp_',num2str(i)]);
+                SPM.Sess(ii).C.C = load(mrp);
+                for j = 1:size(SPM.Sess(ii).C.C,2)
+                    SPM.Sess(ii).C.name{j} = ['movement',num2str(j)];
                 end
+                
+                % configure the input structure array
+                n = 0;
+                for j=1:numel(reg.onsets)
+                    if ~isempty(reg.onsets{j})
+                        n = n + 1;
+                        U.name = reg.names{j};
+                        U.ons  = reg.onsets{j}(:);
+                        U.dur  = reg.durations(j) .* ones(size(U.ons));
+                        U.P    = struct('name', 'none', 'h', 0);
+                        SPM.Sess(ii).U(n) = U;
+                    end
+                end
+                
+                % high-pass filter
+                SPM.xX.K(ii).HParam = defaults.stats.fmri.hpf;
             end
-            
-            % high-pass filter
-            SPM.xX.K(i).HParam = defaults.stats.fmri.hpf;
         end
         
         delete('mask.img'); % make spm re-use directory without prompting
+        SPM.xY.P = char(SPM.xY.P);
         SPM = spm_fmri_spm_ui(SPM);
         SPM = spm_spm(SPM);                     %estimate model
     end
