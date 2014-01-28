@@ -60,7 +60,7 @@ function SPM = fmri_model(EXPT,model,submat)
         for r = 1:length(S.functional)
             niftidir = S.functional(r).niftidir;
             run = S.functional(r).run;
-            SPM.xY.P{r,1} = fmri_get(fullfile(niftidir,sprintf('sw*-%3.4d-*',run));
+            SPM.xY.P{r,1} = fmri_get(fullfile(niftidir,sprintf('sw*-%3.4d-*',run)));
             SPM.nscan(r) = size(SPM.xY.P{r},1);
         end
         SPM.xY.P = char(SPM.xY.P);
