@@ -38,7 +38,10 @@ function SPM = fmri_model(EXPT,model,submat)
     for subj = submat;
         
         disp(EXPT.subject(subj).name);
-        cd(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,['model',num2str(model)]));
+        modeldir = fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,['model',num2str(model)]);
+        if isdir(modeldir); rmdir(modeldir); end
+        mkdir(modeldir);
+        cd(modeldir);
         
         % get para file names and toss out runs with no para file
         para = EXPT.modelfun(EXPT,subj,model);
