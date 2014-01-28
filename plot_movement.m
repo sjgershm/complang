@@ -11,6 +11,7 @@ function plot_movement(EXPT,subj)
         files{r,1} = fmri_get(fullfile(niftidir,sprintf('f*-%3.4d-*',run)));
         nscan(r) = length(files{r});
     end
+    nscan = cumsum(nscan);
     P = spm_vol(char(files));
     
     fg=spm_figure;
