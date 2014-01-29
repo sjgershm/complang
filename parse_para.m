@@ -66,6 +66,7 @@ function P = parse_para(filename,TR)
     end
     
     u = unique(event);
+    P.events = u;
     P.onsets = cell(1,length(u));
     for i = 1:length(u)
         P.onsets{i} = ons(event==u(i));
