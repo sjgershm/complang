@@ -19,8 +19,8 @@ function [B names] = complang01_events(EXPT,model,subj)
     for i = 1:length(names)
         c = find_regressors(SPM.xX.name',names{i});
         B{i} = find(c);
-        if isempty(B); E(i) = 0; else E(i) = 1; end
+        E(i) = isempty(B{i});
     end
     
-    B(E==0) = [];
-    names(E==0) = [];
+    B(E) = [];
+    names(E) = [];
