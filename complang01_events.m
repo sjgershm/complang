@@ -1,8 +1,8 @@
-function [B names] = complang01_events(EXPT,subj)
+function [B names] = complang01_events(EXPT,model,subj)
     
     % Get beta image numbers for each complang event.
     %
-    % USAGE: complang01_events(EXPT,subj)
+    % USAGE: complang01_events(EXPT,model,subj)
     
     S = EXPT.subject(subj);
     
