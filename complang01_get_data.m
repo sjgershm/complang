@@ -21,4 +21,4 @@ function data = complang01_get_data(EXPT,model,subj)
     data.B = B;
     data.names = names;
     
-    save(fullfile(EXPT.analysis_dir,S.name,['model',num2str(model)],fname),'data');
+    save(fullfile(EXPT.analysis_dir,S.name,['model',num2str(model)],'data'),'data');
