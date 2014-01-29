@@ -8,6 +8,7 @@ function data = complang01_get_data(EXPT,model,subj)
     data.mask = mask;
     
     for i = 1:length(B)
+        disp(num2str(i));
         for j = 1:length(B{i})
             fname = sprintf('beta_%3.4d.img',B{i}(j));
             V = spm_vol(fullfile(EXPT.analysis_dir,S.name,['model',num2str(model)],fname));
