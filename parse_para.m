@@ -71,5 +71,6 @@ function P = parse_para(filename,TR)
     for i = 1:length(u)
         P.onsets{i} = ons(event==u(i));
     end
+    P.names_all = P.names;
     P.names = P.names(u);
     P.durations = P.durations(u);
