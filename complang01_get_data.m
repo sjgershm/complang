@@ -1,5 +1,9 @@
 function data = complang01_get_data(EXPT,model,subj)
     
+    % Get complang fmri data.
+    %
+    % USAGE: data = complang01_get_data(EXPT,model,subj)
+    
     S = EXPT.subject(subj);
     [B names] = complang01_events(EXPT,model,subj);
     

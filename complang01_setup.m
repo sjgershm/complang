@@ -158,6 +158,8 @@ function EXPT = complang01_setup
     niftidir1 = fullfile(EXPT.data_dir,'subj02','nii');
     dicomdir2 = fullfile(EXPT.data_dir,'subj02b','dicoms');
     niftidir2 = fullfile(EXPT.data_dir,'subj02b','nii');
+    paradir1 = fullfile(EXPT.data_dir,'subj02','onsets');
+    paradir2 = fullfile(EXPT.data_dir,'subj02b','onsets');
     
     EXPT.subject(2).anatomical.run = 4;
     EXPT.subject(2).anatomical.dicomdir = fullfile(EXPT.data_dir,'subj02','dicoms_anatomical');
@@ -167,93 +169,112 @@ function EXPT = complang01_setup
     EXPT.subject(2).functional(1).name = 'LangLoc1';
     EXPT.subject(2).functional(1).dicomdir = dicomdir1;
     EXPT.subject(2).functional(1).niftidir = niftidir1;
+    EXPT.subject(2).functional(1).para{1} = fullfile(paradir1,'subj02_05_superloc2conds_Parvizi_c1.para');
     
     EXPT.subject(2).functional(2).run = 9;
     EXPT.subject(2).functional(2).name = 'LangLoc2';
     EXPT.subject(2).functional(2).dicomdir = dicomdir1;
     EXPT.subject(2).functional(2).niftidir = niftidir1;
+    EXPT.subject(2).functional(2).para{1} = fullfile(paradir1,'subj02_09_superloc2conds_Parvizi_c2.para');
     
     EXPT.subject(2).functional(3).run = 11;
     EXPT.subject(2).functional(3).name = 'TargetWords1';
     EXPT.subject(2).functional(3).dicomdir = dicomdir1;
     EXPT.subject(2).functional(3).niftidir = niftidir1;
+    EXPT.subject(2).functional(3).para{1} = fullfile(paradir1,'subj02_11_ICGT.para');
     
     EXPT.subject(2).functional(4).run = 13;
     EXPT.subject(2).functional(4).name = 'TargetWords2';
     EXPT.subject(2).functional(4).dicomdir = dicomdir1;
     EXPT.subject(2).functional(4).niftidir = niftidir1;
+    EXPT.subject(2).functional(4).para{1} = fullfile(paradir1,'subj02_13_ICGT.para');
     
     EXPT.subject(2).functional(5).run = 15;
     EXPT.subject(2).functional(5).name = 'DyLoc1';
     EXPT.subject(2).functional(5).dicomdir = dicomdir1;
     EXPT.subject(2).functional(5).niftidir = niftidir1;
+    EXPT.subject(2).functional(5).para{1} = fullfile(paradir1,'subj02_15_DyLoc1.para');
     
     EXPT.subject(2).functional(6).run = 17;
     EXPT.subject(2).functional(6).name = 'DyLoc2';
     EXPT.subject(2).functional(6).dicomdir = dicomdir1;
     EXPT.subject(2).functional(6).niftidir = niftidir1;
+    EXPT.subject(2).functional(6).para{1} = fullfile(paradir1,'subj02_17_DyLoc2.para');
     
     EXPT.subject(2).functional(7).run = 19;
     EXPT.subject(2).functional(7).name = 'TargetWords3';
     EXPT.subject(2).functional(7).dicomdir = dicomdir1;
     EXPT.subject(2).functional(7).niftidir = niftidir1;
+    EXPT.subject(2).functional(7).para{1} = fullfile(paradir1,'subj02_19_ICGT.para');
     
     EXPT.subject(2).functional(8).run = 21;
     EXPT.subject(2).functional(8).name = 'TargetWords4';
     EXPT.subject(2).functional(8).dicomdir = dicomdir1;
     EXPT.subject(2).functional(8).niftidir = niftidir1;
+    EXPT.subject(2).functional(8).para{1} = fullfile(paradir1,'subj02_21_ICGT.para');
     
     EXPT.subject(2).functional(9).run = 23;
     EXPT.subject(2).functional(9).name = 'TargetWords5';
     EXPT.subject(2).functional(9).dicomdir = dicomdir1;
     EXPT.subject(2).functional(9).niftidir = niftidir1;
+    EXPT.subject(2).functional(9).para{1} = fullfile(paradir1,'subj02_23_ICGT.para');
     
     EXPT.subject(2).functional(10).run = 25;
     EXPT.subject(2).functional(10).name = 'TargetWords6';
     EXPT.subject(2).functional(10).dicomdir = dicomdir1;
     EXPT.subject(2).functional(10).niftidir = niftidir1;
+    EXPT.subject(2).functional(10).para{1} = fullfile(paradir1,'subj02_25_ICGT.para');
     
     EXPT.subject(2).functional(11).run = 27;
     EXPT.subject(2).functional(11).name = 'DyLoc3';
     EXPT.subject(2).functional(11).dicomdir = dicomdir1;
     EXPT.subject(2).functional(11).niftidir = niftidir1;
+    EXPT.subject(2).functional(11).para{1} = fullfile(paradir1,'subj02_27_DyLoc3.para');
     
     EXPT.subject(2).functional(12).run = 4;
     EXPT.subject(2).functional(12).name = 'Constrained1';
     EXPT.subject(2).functional(12).dicomdir = dicomdir2;
     EXPT.subject(2).functional(12).niftidir = niftidir2;
+    EXPT.subject(2).functional(12).para{1} = fullfile(paradir2,'subj02b_04_ICGT.para');
     
     EXPT.subject(2).functional(13).run = 6;
     EXPT.subject(2).functional(13).name = 'Diverse1';
     EXPT.subject(2).functional(13).dicomdir = dicomdir2;
     EXPT.subject(2).functional(13).niftidir = niftidir2;
+    EXPT.subject(2).functional(13).para{1} = fullfile(paradir2,'subj02b_06_ICGT.para');
     
     EXPT.subject(2).functional(14).run = 8;
     EXPT.subject(2).functional(14).name = 'Constrained2';
     EXPT.subject(2).functional(14).dicomdir = dicomdir2;
     EXPT.subject(2).functional(14).niftidir = niftidir2;
+    EXPT.subject(2).functional(14).para{1} = fullfile(paradir2,'subj02b_08_ICGT.para');
     
     EXPT.subject(2).functional(15).run = 10;
     EXPT.subject(2).functional(15).name = 'Diverse2';
     EXPT.subject(2).functional(15).dicomdir = dicomdir2;
     EXPT.subject(2).functional(15).niftidir = niftidir2;
+    EXPT.subject(2).functional(15).para{1} = fullfile(paradir2,'subj02b_10_ICGT.para');
     
     EXPT.subject(2).functional(16).run = 14;
     EXPT.subject(2).functional(16).name = 'Constrained3';
     EXPT.subject(2).functional(16).dicomdir = dicomdir2;
     EXPT.subject(2).functional(16).niftidir = niftidir2;
+    EXPT.subject(2).functional(16).para{1} = fullfile(paradir2,'subj02b_14_ICGT.para');
     
     EXPT.subject(2).functional(17).run = 16;
     EXPT.subject(2).functional(17).name = 'Diverse3';
     EXPT.subject(2).functional(17).dicomdir = dicomdir2;
     EXPT.subject(2).functional(17).niftidir = niftidir2;
+    EXPT.subject(2).functional(17).para{1} = fullfile(paradir2,'subj02b_16_ICGT.para');
     
     EXPT.subject(2).functional(18).run = 18;
     EXPT.subject(2).functional(18).name = 'Constrained4';
     EXPT.subject(2).functional(18).dicomdir = dicomdir2;
     EXPT.subject(2).functional(18).niftidir = niftidir2;
+    EXPT.subject(2).functional(18).para{1} = fullfile(paradir2,'subj02b_18_ICGT.para');
     
     EXPT.subject(2).functional(19).run = 20;
     EXPT.subject(2).functional(19).name = 'Diverse4';
     EXPT.subject(2).functional(19).dicomdir = dicomdir2;
     EXPT.subject(2).functional(19).niftidir = niftidir2;
+    EXPT.subject(2).functional(19).para{1} = fullfile(paradir2,'subj02b_20_ICGT.para');
