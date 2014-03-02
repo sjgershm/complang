@@ -1,21 +1,18 @@
-function [c rank] = stability_selection(Y)
+function [rank c] = stability_selection(Y)
     
-    [N V] = size(Y{1});
-    
-    for n = 1:N
-        for i = 1:length(Y)
-            y{n}(i,:) = Y{i}(n,:);
-        end
-    end
-    
+    V = size(Y,2);
+    M = 25;
+    rep = repmat(1:6,1,M);
     c = zeros(1,V);
     ii = 0;
-    for n = 1:N
-        dn = bsxfun(@minus,y{n},mean(y{n}));
+    for n = 1:6
+        y = Y(rep==n,:);
+        dn = bsxfun(@minus,y,mean(y));
         fn = sum(dn.^2);
-        for m = (n+1):N
+        for m = (n+1):6
             ii = ii + 1;
-            dm = bsxfun(@minus,y{m},mean(y{m}));
+            y = Y(rep==m,:);
+            dm = bsxfun(@minus,y,mean(y));
             fm = sum(dm.^2);
             c = c + sum(dn.*dm)./sqrt(fm.*fn);
         end

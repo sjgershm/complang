@@ -56,7 +56,7 @@ function SPM = fmri_model(EXPT,model,submat)
                 % specify image file names
                 niftidir = S.functional(i).niftidir;
                 run = S.functional(i).run;
-                SPM.xY.P{ii,1} = fmri_get(fullfile(niftidir,sprintf('sw*-%3.4d-*',run)));
+                SPM.xY.P{ii,1} = fmri_get(fullfile(niftidir,sprintf('w*-%3.4d-*',run)));
                 SPM.nscan(ii) = size(SPM.xY.P{ii},1);
                 
                 % load movement regressors
