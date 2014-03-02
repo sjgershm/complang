@@ -22,20 +22,21 @@ function SPM = fmri_model(EXPT,model,submat)
     defaults = spm_get_defaults;
     warning off all
     
-    % SPM settings
-    SPM.xY.RT = EXPT.TR;
-    SPM.xBF.T = defaults.stats.fmri.fmri_t;
-    SPM.xBF.T0 = defaults.stats.fmri.fmri_t0;
-    SPM.xBF.dt = SPM.xY.RT/SPM.xBF.T;
-    SPM.xBF.UNITS   = 'secs';     % time units ('scans', 'secs')
-    SPM.xBF.name    = 'hrf';      % basis function type
-    SPM.xBF.factor = [];
-    SPM.xBF.Volterra = 1;
-    SPM.xBF = spm_get_bf(SPM.xBF);
-    SPM.xGX.iGXcalc = 'none';     % global intensity normalization (note: 'none' actually means 'session-specific')
-    SPM.xVi.form    = 'AR(1)';    % correct for serial correlations ('none', 'AR(1)')
-    
     for subj = submat;
+        
+        % SPM settings
+        clear SPM
+        SPM.xY.RT = EXPT.TR;
+        SPM.xBF.T = defaults.stats.fmri.fmri_t;
+        SPM.xBF.T0 = defaults.stats.fmri.fmri_t0;
+        SPM.xBF.dt = SPM.xY.RT/SPM.xBF.T;
+        SPM.xBF.UNITS   = 'secs';     % time units ('scans', 'secs')
+        SPM.xBF.name    = 'hrf';      % basis function type
+        SPM.xBF.factor = [];
+        SPM.xBF.Volterra = 1;
+        SPM.xBF = spm_get_bf(SPM.xBF);
+        SPM.xGX.iGXcalc = 'none';     % global intensity normalization (note: 'none' actually means 'session-specific')
+        SPM.xVi.form    = 'AR(1)';    % correct for serial correlations ('none', 'AR(1)')
         
         S = EXPT.subject(subj);
         disp(S.name);
