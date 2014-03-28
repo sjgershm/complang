@@ -1,6 +1,6 @@
-function [r p] = complang_classify_sentences(subj)
+function [r, rp, c, cp] = complang_classify_sentences(subj)
     
-    [x y] = complang01_load_data(subj);
+    [x, y] = complang01_load_data(subj);
     
     K = [25 50 75 0];
     test = 151:size(x,1);
@@ -14,5 +14,11 @@ function [r p] = complang_classify_sentences(subj)
         for t = 1:size(results.rp,4)
             g(t,:,:) = squeeze(mean(results.rp(:,:,:,t))) > squeeze(mean(r{k}));
         end
-        p{k} = squeeze(mean(g));
+        rp{k} = squeeze(mean(g));
+        
+        c{k} = results.c;
+        for t = 1:size(results.cp,4)
+            g(t,:,:) = squeeze(mean(results.cp(:,:,:,t))) > squeeze(mean(c{k}));
+        end
+        cp{k} = squeeze(mean(g));
     end

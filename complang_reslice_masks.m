@@ -1,8 +1,8 @@
 function complang_reslice_masks(subj)
     
-    F = dir('masks/*.nii');
+    F = dir('/Users/sam1/Documents/lab_stuff/kanwisher/complang01/masks/*.nii');
     for i = 1:length(F)
-        P{i,1} = fullfile('masks',F(i).name);
+        P{i,1} = fullfile('/Users/sam1/Documents/lab_stuff/kanwisher/complang01/masks',F(i).name);
     end
     
     switch subj
@@ -15,6 +15,17 @@ function complang_reslice_masks(subj)
     end
     
     spm_reslice(P);
-    tdir = ['masks',num2str(subj),'/'];
+    
+    D = '/Users/sam1/Documents/lab_stuff/kanwisher/complang01/masks/';
+    F = dir(fullfile(D,'r*.nii'));
+    for i = 1:length(F)
+        V = spm_vol(fullfile(D,F(i).name));
+        V.fname = fullfile(D,F(i).name);
+        V.private.dat.fname = V.fname;
+        Y = spm_read_vols(V);
+        spm_write_vol(V,round(Y));
+    end
+    
+    tdir = ['/Users/sam1/Documents/lab_stuff/kanwisher/complang01/masks',num2str(subj),'/'];
     if ~exist(tdir); mkdir(tdir);  end
-    movefile(fullfile('masks','r*nii'),tdir);
+    movefile(fullfile('/Users/sam1/Documents/lab_stuff/kanwisher/complang01/masks','r*nii'),tdir);

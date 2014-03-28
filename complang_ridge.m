@@ -10,14 +10,16 @@ function results = complang_ridge(X,Y,rank,K,train,test,classes)
     nperm = 1000;
     
     if K > 0
-        pc = princomp(X(train,:));
+        pc = pca(X(train,:));
         X = X*pc(:,1:K);
     end
     
     X = add_intercept(X);
     N = length(classes);
     results.r = zeros(N,length(lambda),length(D));
-    results.rp = zeros(N,length(lambda),length(D));
+    results.rp = zeros(N,length(lambda),length(D),nperm);
+    results.c = zeros(N,length(lambda),length(D));
+    results.cp = zeros(N,length(lambda),length(D),nperm);
     
     for i = 1:length(lambda)
         for j = 1:length(D)
@@ -25,9 +27,19 @@ function results = complang_ridge(X,Y,rank,K,train,test,classes)
             W = train_ridge(X(train,:),Y(train,ix),lambda(i));
             C = distance_matrix(X(test,:)*W,Y(classes,ix),'correlation');
             results.r(:,i,j) = rank_accuracy(C);
+            c = 1-diag(C);
+            results.c(:,i,j) = c;
             for t = 1:nperm
-                results.rp(:,i,j,t) = rank_accuracy(C(:,randperm(N)));
+                ii = randperm(N);
+                results.rp(:,i,j,t) = rank_accuracy(C(:,ii));
+                results.cp(:,i,j,t) = c(ii);
             end
+            
+            % decode semantic vector and then compute distance 
+            %Z = train_ridge(W',Y(classes,ix)',0.00001);
+            %C = distance_matrix(X(test,:),Z','correlation');
+            %results.r(:,i,j) = rank_accuracy(C);
+            % absolute accuracy
             %[~,k] = min(C,[],2); 
             %results.r(:,i,j) = mean(k'==1:size(C,2));
         end

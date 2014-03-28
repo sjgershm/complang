@@ -14,7 +14,7 @@ function fmri_preproc(EXPT,subj,tasks)
     %                       'coregister' - image coregistration
     %                       'normalize' - warp anatomical to template
     %                       'smooth' - smooth images with gaussian kernel
-    %                       'all' - all of the above (in order)
+    %                       'all' - all of the above (in order) except smoothing
     %                      if tasks is a cell array, it will do the
     %                      specified tasks in sequence. By default, tasks = 'all'
     %
@@ -43,7 +43,7 @@ function fmri_preproc(EXPT,subj,tasks)
     switch tasks
         case 'all'
             % Do everything
-            tasks = {'dicom_convert' 'realign' 'coregister' 'normalize' 'smooth'};
+            tasks = {'dicom_convert' 'realign' 'coregister' 'normalize'};
             fmri_preproc(EXPT,subj,tasks);
             return
             
