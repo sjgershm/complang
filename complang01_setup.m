@@ -292,8 +292,8 @@ function EXPT = complang01_setup
     paradir2 = fullfile(EXPT.data_dir,'subj03b','onsets');
     
     EXPT.subject(3).anatomical.run = 4;
-    EXPT.subject(3).anatomical.dicomdir = fullfile(EXPT.data_dir,'subj03','dicoms_anatomical');
-    EXPT.subject(3).anatomical.niftidir = fullfile(EXPT.data_dir,'subj03','nii_anatomical');
+    EXPT.subject(3).anatomical.dicomdir = dicomdir1;
+    EXPT.subject(3).anatomical.niftidir = niftidir1;
     
     EXPT.subject(3).functional(1).run = 6;
     EXPT.subject(3).functional(1).name = 'TargetWords1';
@@ -428,8 +428,8 @@ function EXPT = complang01_setup
     paradir2 = fullfile(EXPT.data_dir,'subj04b','onsets');
     
     EXPT.subject(4).anatomical.run = 4;
-    EXPT.subject(4).anatomical.dicomdir = fullfile(EXPT.data_dir,'subj04','dicoms_anatomical');
-    EXPT.subject(4).anatomical.niftidir = fullfile(EXPT.data_dir,'subj04','nii_anatomical');
+    EXPT.subject(4).anatomical.dicomdir = dicomdir1;
+    EXPT.subject(4).anatomical.niftidir = niftidir1;
     
     EXPT.subject(4).functional(1).run = 8;
     EXPT.subject(4).functional(1).name = 'TargetWords1';
