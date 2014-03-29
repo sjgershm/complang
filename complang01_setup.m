@@ -389,7 +389,7 @@ function EXPT = complang01_setup
     EXPT.subject(3).functional(16).name = 'LangLoc2';
     EXPT.subject(3).functional(16).dicomdir = dicomdir2;
     EXPT.subject(3).functional(16).niftidir = niftidir2;
-    EXPT.subject(3).functional(16).para{1} = fullfile(paradir2,'subj03b_14_superloc2conds_Parvizi_c1.para');
+    EXPT.subject(3).functional(16).para{1} = fullfile(paradir2,'subj03b_14_superloc2conds_Parvizi_c2.para');
     
     EXPT.subject(3).functional(17).run = 16;
     EXPT.subject(3).functional(17).name = 'Constrained3';
