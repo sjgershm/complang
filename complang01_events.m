@@ -18,6 +18,18 @@ function [B names] = complang01_events(EXPT,model,subj)
             names = P.names_all(3:end)';
             P = parse_para(S.functional(12).para{1},EXPT.TR);
             names = [names; P.names_all(3:end)'];
+            
+        case 3
+            P = parse_para(S.functional(1).para{1},EXPT.TR);
+            names = P.names_all(3:end)';
+            P = parse_para(S.functional(11).para{1},EXPT.TR);
+            names = [names; P.names_all(3:end)'];
+            
+        case 4
+            P = parse_para(S.functional(1).para{1},EXPT.TR);
+            names = P.names_all(3:end)';
+            P = parse_para(S.functional(8).para{1},EXPT.TR);
+            names = [names; P.names_all(3:end)'];
     end
     
     load(fullfile(EXPT.analysis_dir,S.name,['model',num2str(model)],'SPM'));
