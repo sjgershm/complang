@@ -8,7 +8,7 @@ function EXPT = complang02_setup
     EXPT.TR = 2;        % repetition time
     EXPT.fwhm = 4;      % full-width half maximum for smoothing
     EXPT.analysis_dir = '/mindhive/nklab/projects/MACKEREL/analysis';
-    EXPT.data_dir = '/mindhive/nklab/projects/MACKEREL/data';
+    EXPT.data_dir = '/mindhive/nklab/projects/MACKEREL/data02';
     
     addpath(genpath('/mindhive/nklab/projects/compositionality_lang/scripts/spm8'));
     addpath('/mindhive/nklab/projects/MACKEREL/complang');
