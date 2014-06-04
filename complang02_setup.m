@@ -13,6 +13,7 @@ function EXPT = complang02_setup
     addpath(genpath('/mindhive/nklab/projects/compositionality_lang/scripts/spm8'));
     addpath('/mindhive/nklab/projects/MACKEREL/complang');
     addpath('/mindhive/nklab/projects/MACKEREL/fmri');
+    addpath('/mindhive/nklab/projects/MACKEREL/util');
 
     %----------------------------------%
     %           SUBJECT 1              
