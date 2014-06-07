@@ -7,7 +7,7 @@ function m = complang_langloc_reliability(EXPT,model,subj)
     
     for i = 1:length(masks)
         for k = 1:2
-            [~,p\] = compute_reliability(beta,masks{i},k);
+            [~,p] = compute_reliability(beta,masks{i},k);
             m(i,k) = mean(mean(p,2)>0);
         end
     end
