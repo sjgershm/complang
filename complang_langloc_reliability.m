@@ -3,7 +3,7 @@ function m = complang_langloc_reliability(EXPT,model,subj)
     masks = complang02_langloc_roi(EXPT,model,subj);
     
     names = fmri_events(EXPT,model,subj,'stim_sentencesSubsetA_2',0);
-    beta = fmri_load_beta(EXPT,model,subj,names);
+    beta = fmri_load_beta(EXPT,model,subj,names(2:end)');
     
     K = 2;
     m = zeros(length(masks),K);
