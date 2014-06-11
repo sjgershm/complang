@@ -410,3 +410,25 @@ function EXPT = complang02_setup
     EXPT.subject(4).functional(8).dicomdir = dicomdir1;
     EXPT.subject(4).functional(8).niftidir = niftidir1;
     EXPT.subject(4).functional(8).para{1} = fullfile(paradir1,'subj04_20_ICGT.para');
+	
+    EXPT.subject(4).functional(9).run = 22;
+    EXPT.subject(4).functional(9).name = 'stim_sentencesSubsetA_1';
+    EXPT.subject(4).functional(9).dicomdir = dicomdir1;
+    EXPT.subject(4).functional(9).niftidir = niftidir1;
+    EXPT.subject(4).functional(9).para{1} = fullfile(paradir1,'subj04_22_ICGT.para');
+	
+    EXPT.subject(4).functional(10).run = 24;
+    EXPT.subject(4).functional(10).name = 'stim_sentencesSubsetB_1';
+    EXPT.subject(4).functional(10).dicomdir = dicomdir1;
+    EXPT.subject(4).functional(10).niftidir = niftidir1;
+    EXPT.subject(4).functional(10).para{1} = fullfile(paradir1,'subj04_24_ICGT.para');
+	
+    EXPT.subject(4).functional(11).run = 26;
+    EXPT.subject(4).functional(11).name = 'stim_words1';
+    EXPT.subject(4).functional(11).dicomdir = dicomdir1;
+    EXPT.subject(4).functional(11).niftidir = niftidir1;
+    EXPT.subject(4).functional(11).para{1} = fullfile(paradir1,'subj04_26_ICGT.para');
+	
+	
+	
+	
