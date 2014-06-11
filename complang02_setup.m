@@ -338,13 +338,13 @@ function EXPT = complang02_setup
     EXPT.subject(3).functional(5).niftidir = niftidir1;
     EXPT.subject(3).functional(5).para{1} = fullfile(paradir1,'subj03_16_superloc2conds_Parvizi_c2.para');
     
-    EXPT.subject(3).functional(6).run = 18;
+    EXPT.subject(3).functional(6).run = 20;
     EXPT.subject(3).functional(6).name = 'stim_reversibles_4';
     EXPT.subject(3).functional(6).dicomdir = dicomdir1;
     EXPT.subject(3).functional(6).niftidir = niftidir1;
     EXPT.subject(3).functional(6).para{1} = fullfile(paradir1,'subj03_18_ICGT.para');
     
-    EXPT.subject(3).functional(7).run = 20;
+    EXPT.subject(3).functional(7).run = 22;
     EXPT.subject(3).functional(7).name = 'stim_reversibles_5';
     EXPT.subject(3).functional(7).dicomdir = dicomdir1;
     EXPT.subject(3).functional(7).niftidir = niftidir1;

@@ -1,4 +1,4 @@
-function ConstructPara_ICGT(filename,dat,stimIdx)
+function constructPara_ICGT(filename,dat,stimIdx)
     
     % ICGT (Individual Cue, General Target)
     % Construct paradigm (onset) files.
