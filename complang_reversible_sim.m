@@ -22,7 +22,7 @@ function m = complang_reversible_sim(EXPT,model,subj,metric)
     m = nan(length(masks),length(u),4);
     
     for i = 1:length(masks)
-        if ~isempty(masks{i})
+        if any(masks{i})
             D = squareform(pdist(b(:,masks{i}),metric));
             for j = 1:length(u)
                 ix1 = RevAnnot(:,1)==j & RevAnnot(:,2)==1;
