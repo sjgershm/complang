@@ -7,7 +7,7 @@ function m = complang_reversible_sim(EXPT,model,subj,metric)
     if nargin < 4; metric = 'Euclidean'; end
     
     masks = complang02_langloc_roi(EXPT,model,subj);
-    names = fmri_events(EXPT,model,subj,'stim_reversibles_1',0);
+    names = fmri_events(EXPT,model,subj,'stim_reversibles_1',1);
     beta = fmri_load_beta(EXPT,model,subj,names(3:end)');
     
     b = zeros(length(beta),size(beta{1},2));
