@@ -10,9 +10,11 @@ function m = complang_reversible_sim(EXPT,model,subj,metric)
     names = fmri_events(EXPT,model,subj,'stim_reversibles_1',1);
     beta = fmri_load_beta(EXPT,model,subj,names(3:end)');
     
-    b = zeros(length(beta),size(beta{1},2));
+    b = nan(length(beta),size(beta{1},2));
     for i = 1:length(beta)
-        b(i,:) = mean(beta{i},1);
+        if ~isempty(beta{i})
+            b(i,:) = nanmean(beta{i},1);
+        end
     end
     
     load RevAnnotations
@@ -24,7 +26,7 @@ function m = complang_reversible_sim(EXPT,model,subj,metric)
             ix1 = RevAnnot(:,1)==j & RevAnnot(:,2)==1;
             for k = 2:5
                 ix2 = RevAnnot(:,1)==j & RevAnnot(:,2)==k;
-                m(j,k-1) = mean(D(ix1,ix2));
+                m(j,k-1) = nanmean(D(ix1,ix2));
             end
         end
     end
