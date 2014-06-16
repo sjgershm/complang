@@ -19,14 +19,17 @@ function m = complang_reversible_sim(EXPT,model,subj,metric)
     
     load RevAnnotations
     u = unique(RevAnnot(:,1));
+    m = nan(length(masks),length(u),4);
     
     for i = 1:length(masks)
-        D = squareform(pdist(b(:,masks{i}),metric));
-        for j = 1:length(u)
-            ix1 = RevAnnot(:,1)==j & RevAnnot(:,2)==1;
-            for k = 2:5
-                ix2 = RevAnnot(:,1)==j & RevAnnot(:,2)==k;
-                m(j,k-1) = nanmean(D(ix1,ix2));
+        if ~isempty(masks{i})
+            D = squareform(pdist(b(:,masks{i}),metric));
+            for j = 1:length(u)
+                ix1 = RevAnnot(:,1)==j & RevAnnot(:,2)==1;
+                for k = 2:5
+                    ix2 = RevAnnot(:,1)==j & RevAnnot(:,2)==k;
+                    m(i,j,k-1) = nanmean(D(ix1,ix2));
+                end
             end
         end
     end
