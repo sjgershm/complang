@@ -31,6 +31,9 @@ function EXPT = complang02_setup
     paradir4 = fullfile(EXPT.data_dir,'subj01d','onsets');
     dicomdir4 = fullfile(EXPT.data_dir,'subj01d','dicoms');
     niftidir4 = fullfile(EXPT.data_dir,'subj01d','nii');
+    paradir5 = fullfile(EXPT.data_dir,'subj01e','onsets');
+    dicomdir5 = fullfile(EXPT.data_dir,'subj01e','dicoms');
+    niftidir5 = fullfile(EXPT.data_dir,'subj01e','nii');
     
     EXPT.subject(1).anatomical.run = 4;
     EXPT.subject(1).anatomical.dicomdir = dicomdir1;
@@ -209,6 +212,30 @@ function EXPT = complang02_setup
     EXPT.subject(1).functional(28).dicomdir = dicomdir4;
     EXPT.subject(1).functional(28).niftidir = niftidir4;
     EXPT.subject(1).functional(28).para{1} = fullfile(paradir4,'subj01d_14_ICGT.para');
+        
+    EXPT.subject(1).functional(25).run = 6;
+    EXPT.subject(1).functional(25).name = 'stim_sentencesAllSubset_7';
+    EXPT.subject(1).functional(25).dicomdir = dicomdir5;
+    EXPT.subject(1).functional(25).niftidir = niftidir5;
+    EXPT.subject(1).functional(25).para{1} = fullfile(paradir5,'subj01e_06_ICGT.para');
+    
+    EXPT.subject(1).functional(26).run = 8;
+    EXPT.subject(1).functional(26).name = 'stim_sentencesAllSubset_4';
+    EXPT.subject(1).functional(26).dicomdir = dicomdir5;
+    EXPT.subject(1).functional(26).niftidir = niftidir5;
+    EXPT.subject(1).functional(26).para{1} = fullfile(paradir5,'subj01e_08_ICGT.para');
+    
+    EXPT.subject(1).functional(27).run = 10;
+    EXPT.subject(1).functional(27).name = 'stim_sentencesAllSubset_5';
+    EXPT.subject(1).functional(27).dicomdir = dicomdir5;
+    EXPT.subject(1).functional(27).niftidir = niftidir5;
+    EXPT.subject(1).functional(27).para{1} = fullfile(paradir5,'subj01e_10_ICGT.para');
+    
+    EXPT.subject(1).functional(28).run = 12;
+    EXPT.subject(1).functional(28).name = 'stim_sentencesAllSubset_6';
+    EXPT.subject(1).functional(28).dicomdir = dicomdir5;
+    EXPT.subject(1).functional(28).niftidir = niftidir5;
+    EXPT.subject(1).functional(28).para{1} = fullfile(paradir5,'subj01e_12_ICGT.para');
     
     %----------------------------------%
     %           SUBJECT 2              
@@ -217,10 +244,13 @@ function EXPT = complang02_setup
     
     dicomdir1 = fullfile(EXPT.data_dir,'subj02','dicoms');
     niftidir1 = fullfile(EXPT.data_dir,'subj02','nii');
+    paradir1 = fullfile(EXPT.data_dir,'subj02','onsets');
     dicomdir2 = fullfile(EXPT.data_dir,'subj02b','dicoms');
     niftidir2 = fullfile(EXPT.data_dir,'subj02b','nii');
-    paradir1 = fullfile(EXPT.data_dir,'subj02','onsets');
     paradir2 = fullfile(EXPT.data_dir,'subj02b','onsets');
+    dicomdir3 = fullfile(EXPT.data_dir,'subj02c','dicoms');
+    niftidir3 = fullfile(EXPT.data_dir,'subj02c','nii');
+    paradir3 = fullfile(EXPT.data_dir,'subj02c','onsets');
     
     EXPT.subject(2).anatomical.run = 4;
     EXPT.subject(2).anatomical.dicomdir = fullfile(EXPT.data_dir,'subj02','dicoms');
@@ -334,6 +364,66 @@ function EXPT = complang02_setup
     EXPT.subject(2).functional(18).niftidir = niftidir2;
     EXPT.subject(2).functional(18).para{1} = fullfile(paradir2,'subj02b_20_ICGT.para');
     
+    EXPT.subject(2).functional(19).run = 4;
+    EXPT.subject(2).functional(19).name = 'stim_reversibles_3';
+    EXPT.subject(2).functional(19).dicomdir = dicomdir3;
+    EXPT.subject(2).functional(19).niftidir = niftidir3;
+    EXPT.subject(2).functional(19).para{1} = fullfile(paradir3,'subj02c_04_ICGT.para');
+    
+    EXPT.subject(2).functional(20).run = 6;
+    EXPT.subject(2).functional(20).name = 'stim_reversibles_4';
+    EXPT.subject(2).functional(20).dicomdir = dicomdir3;
+    EXPT.subject(2).functional(20).niftidir = niftidir3;
+    EXPT.subject(2).functional(20).para{1} = fullfile(paradir3,'subj02c_06_ICGT.para');
+    
+    EXPT.subject(2).functional(21).run = 8;
+    EXPT.subject(2).functional(21).name = 'stim_reversibles_5';
+    EXPT.subject(2).functional(21).dicomdir = dicomdir3;
+    EXPT.subject(2).functional(21).niftidir = niftidir3;
+    EXPT.subject(2).functional(21).para{1} = fullfile(paradir3,'subj02c_08_ICGT.para');
+    
+    EXPT.subject(2).functional(22).run = 10;
+    EXPT.subject(2).functional(22).name = 'stim_reversibles_6';
+    EXPT.subject(2).functional(22).dicomdir = dicomdir3;
+    EXPT.subject(2).functional(22).niftidir = niftidir3;
+    EXPT.subject(2).functional(22).para{1} = fullfile(paradir3,'subj02c_10_ICGT.para');
+    
+    EXPT.subject(2).functional(23).run = 12;
+    EXPT.subject(2).functional(23).name = 'stim_sentencesAllSubset_1';
+    EXPT.subject(2).functional(23).dicomdir = dicomdir3;
+    EXPT.subject(2).functional(23).niftidir = niftidir3;
+    EXPT.subject(2).functional(23).para{1} = fullfile(paradir3,'subj02c_12_ICGT.para');
+    
+    EXPT.subject(2).functional(24).run = 14;
+    EXPT.subject(2).functional(24).name = 'stim_sentencesAllSubset_2';
+    EXPT.subject(2).functional(24).dicomdir = dicomdir3;
+    EXPT.subject(2).functional(24).niftidir = niftidir3;
+    EXPT.subject(2).functional(24).para{1} = fullfile(paradir3,'subj02c_14_ICGT.para');
+    
+    EXPT.subject(2).functional(25).run = 16;
+    EXPT.subject(2).functional(25).name = 'stim_sentencesAllSubset_3';
+    EXPT.subject(2).functional(25).dicomdir = dicomdir3;
+    EXPT.subject(2).functional(25).niftidir = niftidir3;
+    EXPT.subject(2).functional(25).para{1} = fullfile(paradir3,'subj02c_16_ICGT.para');
+    
+    EXPT.subject(2).functional(26).run = 19;
+    EXPT.subject(2).functional(26).name = 'stim_TargetWords1';
+    EXPT.subject(2).functional(26).dicomdir = dicomdir3;
+    EXPT.subject(2).functional(26).niftidir = niftidir3;
+    EXPT.subject(2).functional(26).para{1} = fullfile(paradir3,'subj02c_19_ICGT.para');
+    
+    EXPT.subject(2).functional(27).run = 21;
+    EXPT.subject(2).functional(27).name = 'stim_sentencesAllSubset_4';
+    EXPT.subject(2).functional(27).dicomdir = dicomdir3;
+    EXPT.subject(2).functional(27).niftidir = niftidir3;
+    EXPT.subject(2).functional(27).para{1} = fullfile(paradir3,'subj02c_21_ICGT.para');
+    
+    EXPT.subject(2).functional(28).run = 23;
+    EXPT.subject(2).functional(28).name = 'stim_sentencesAllSubset_5';
+    EXPT.subject(2).functional(28).dicomdir = dicomdir3;
+    EXPT.subject(2).functional(28).niftidir = niftidir3;
+    EXPT.subject(2).functional(28).para{1} = fullfile(paradir3,'subj02c_23_ICGT.para');
+    
     %----------------------------------%
     %           SUBJECT 3              
     %----------------------------------%
@@ -342,6 +432,9 @@ function EXPT = complang02_setup
     dicomdir1 = fullfile(EXPT.data_dir,'subj03','dicoms');
     niftidir1 = fullfile(EXPT.data_dir,'subj03','nii');
     paradir1 = fullfile(EXPT.data_dir,'subj03','onsets');
+    dicomdir2 = fullfile(EXPT.data_dir,'subj03b','dicoms');
+    niftidir2 = fullfile(EXPT.data_dir,'subj03b','nii');
+    paradir2 = fullfile(EXPT.data_dir,'subj03b','onsets');
     
     EXPT.subject(3).anatomical.run = 4;
     EXPT.subject(3).anatomical.dicomdir = fullfile(EXPT.data_dir,'subj03','dicoms');
@@ -388,6 +481,36 @@ function EXPT = complang02_setup
     EXPT.subject(3).functional(7).dicomdir = dicomdir1;
     EXPT.subject(3).functional(7).niftidir = niftidir1;
     EXPT.subject(3).functional(7).para{1} = fullfile(paradir1,'subj03_22_ICGT.para');
+    
+    EXPT.subject(3).functional(8).run = 3;
+    EXPT.subject(3).functional(8).name = 'stim_reversibles_6';
+    EXPT.subject(3).functional(8).dicomdir = dicomdir2;
+    EXPT.subject(3).functional(8).niftidir = niftidir2;
+    EXPT.subject(3).functional(8).para{1} = fullfile(paradir2,'subj03b_03_ICGT.para');
+    
+    EXPT.subject(3).functional(9).run = 5;
+    EXPT.subject(3).functional(9).name = 'stim_words1';
+    EXPT.subject(3).functional(9).dicomdir = dicomdir2;
+    EXPT.subject(3).functional(9).niftidir = niftidir2;
+    EXPT.subject(3).functional(9).para{1} = fullfile(paradir2,'subj03b_05_ICGT.para');
+    
+    EXPT.subject(3).functional(10).run = 7;
+    EXPT.subject(3).functional(10).name = 'stim_words2';
+    EXPT.subject(3).functional(10).dicomdir = dicomdir2;
+    EXPT.subject(3).functional(10).niftidir = niftidir2;
+    EXPT.subject(3).functional(10).para{1} = fullfile(paradir2,'subj03b_07_ICGT.para');
+    
+    EXPT.subject(3).functional(11).run = 9;
+    EXPT.subject(3).functional(11).name = 'stim_words3';
+    EXPT.subject(3).functional(11).dicomdir = dicomdir2;
+    EXPT.subject(3).functional(11).niftidir = niftidir2;
+    EXPT.subject(3).functional(11).para{1} = fullfile(paradir2,'subj03b_09_ICGT.para');
+    
+    EXPT.subject(3).functional(12).run = 11;
+    EXPT.subject(3).functional(12).name = 'stim_words4';
+    EXPT.subject(3).functional(12).dicomdir = dicomdir2;
+    EXPT.subject(3).functional(12).niftidir = niftidir2;
+    EXPT.subject(3).functional(12).para{1} = fullfile(paradir2,'subj03b_11_ICGT.para');
     
     %----------------------------------%
     %           SUBJECT 4              
