@@ -8,7 +8,7 @@ function masks = complang02_langloc_roi(EXPT,model,subj)
     
     S = EXPT.subject(subj);
     M = ['model',num2str(model)];
-    V = spm_vol(fullfile(EXPT.analysis_dir,S.name,M,'S-N_001.img'));
+    V = spm_vol(fullfile(EXPT.analysis_dir,S.name,'localizers','S-N_001.img'));
     y = spm_read_vols(V);
     y = y>0;
     
