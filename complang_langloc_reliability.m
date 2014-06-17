@@ -1,4 +1,4 @@
-function m = complang_langloc_reliability(EXPT,model,subj,metric)
+function [m, X] = complang_langloc_reliability(EXPT,model,subj,metric)
     
     if nargin < 4 || isempty(metric); metric = 'euclidean'; end
     masks = complang02_langloc_roi(EXPT,model,subj);
@@ -15,7 +15,7 @@ function m = complang_langloc_reliability(EXPT,model,subj,metric)
             disp(['... mask ',num2str(i)]);
             if any(masks{i})
                 for k = 1:K
-                    p = compute_reliability(beta,masks{i},k,metric);
+                    [p, X{j,i,k}] = compute_reliability(beta,masks{i},k,metric);
                     m{j}(i,k) = nanmean(p);
                 end
             end
