@@ -11,10 +11,11 @@ function m = complang_langloc_reliability(EXPT,model,subj)
         K = 2;
         m{j} = nan(length(masks),K);
         for i = 1:length(masks)
+            disp(['... mask ',num2str(i)]);
             if any(masks{i})
                 for k = 1:K
-                    [R,p] = compute_reliability(beta,masks{i},k);
-                    m{j}(i,k) = mean(mean(p,2)>0);
+                    p = compute_reliability(beta,masks{i},k);
+                    m{j}(i,k) = nanmean(p);
                 end
             end
         end
