@@ -1,9 +1,9 @@
-function [m, X] = complang_langloc_reliability(EXPT,model,subj,metric)
+function [m, X] = complang_langloc_reliability(EXPT,model,subj,metric,F)
     
     if nargin < 4 || isempty(metric); metric = 'euclidean'; end
     masks = complang02_langloc_roi(EXPT,model,subj);
     
-    F = {'stim_sentencesSubsetA_1' 'stim_sentencesSubsetB_1'};
+    if nargin < 5; F = {'stim_sentencesSubsetA_1' 'stim_sentencesSubsetB_1'}; end
     
     for j = 1:length(F)
         names = fmri_events(EXPT,model,subj,F{j},0);
