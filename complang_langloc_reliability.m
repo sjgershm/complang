@@ -1,6 +1,6 @@
 function [m, X] = complang_langloc_reliability(EXPT,model,subj,metric,F)
     
-    if nargin < 4 || isempty(metric); metric = 'euclidean'; end
+    if nargin < 4 || isempty(metric); metric = 'correlation'; end
     masks = complang02_langloc_roi(EXPT,model,subj);
     
     if nargin < 5; F = {'stim_sentencesSubsetA_1' 'stim_sentencesSubsetB_1'}; end
