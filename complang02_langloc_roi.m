@@ -1,8 +1,10 @@
-function masks = complang02_langloc_roi(EXPT,model,subj)
+function masks = complang02_langloc_roi(EXPT,model,subj,group)
     
     % Create subject-specific langloc ROI masks.
     %
     % USAGE: masks = complang02_langloc_roi(EXPT,model,subj)
+    
+    if nargin < 4; group = 0; end
     
     load langloc_parcels
     
@@ -21,7 +23,7 @@ function masks = complang02_langloc_roi(EXPT,model,subj)
         masks{i} = masks{i}(mask);
         
         % use the group parcel if no voxels survive
-        if ~any(masks{i})
+        if ~any(masks{i}) || group
             masks{i} = Y==i;
             masks{i} = masks{i}(mask);
         end
