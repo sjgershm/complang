@@ -19,4 +19,10 @@ function masks = complang02_langloc_roi(EXPT,model,subj)
     for i = 1:8
         masks{i} = Y==i & y;
         masks{i} = masks{i}(mask);
+        
+        % use the group parcel if no voxels survive
+        if ~any(masks{i})
+            masks{i} = Y==i;
+            masks{i} = masks{i}(mask);
+        end
     end
