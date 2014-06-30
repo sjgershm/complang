@@ -1,9 +1,10 @@
-function [m, X] = complang_langloc_reliability(EXPT,model,subj,metric,F)
+function [m, X] = complang_langloc_reliability(EXPT,model,subj,metric,F,K)
     
     if nargin < 4 || isempty(metric); metric = 'correlation'; end
     masks = complang02_langloc_roi(EXPT,model,subj);
     
     if nargin < 5; F = {'stim_sentencesSubsetA_1' 'stim_sentencesSubsetB_1'}; end
+    if nargin < 6; K = 2; end
     
     for j = 1:length(F)
         names = fmri_events(EXPT,model,subj,F{j},0);
@@ -11,7 +12,6 @@ function [m, X] = complang_langloc_reliability(EXPT,model,subj,metric,F)
         names(strcmp(names,'target'))=[];
         beta = fmri_load_beta(EXPT,model,subj,names');
         
-        K = 2;
         m{j} = nan(length(masks),K);
         for i = 1:length(masks)
             disp(['... mask ',num2str(i)]);
