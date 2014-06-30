@@ -7,7 +7,9 @@ function [m, X] = complang_langloc_reliability(EXPT,model,subj,metric,F)
     
     for j = 1:length(F)
         names = fmri_events(EXPT,model,subj,F{j},0);
-        beta = fmri_load_beta(EXPT,model,subj,names(2:end)');
+        names(strcmp(names,'cue'))=[];
+        names(strcmp(names,'target'))=[];
+        beta = fmri_load_beta(EXPT,model,subj,names');
         
         K = 2;
         m{j} = nan(length(masks),K);
