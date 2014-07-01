@@ -562,6 +562,9 @@ function EXPT = complang02_setup
     dicomdir2 = fullfile(EXPT.data_dir,'subj04b','dicoms');
     niftidir2 = fullfile(EXPT.data_dir,'subj04b','nii');
     paradir2 = fullfile(EXPT.data_dir,'subj04b','onsets');
+    dicomdir3 = fullfile(EXPT.data_dir,'subj04b','dicoms');
+    niftidir3 = fullfile(EXPT.data_dir,'subj04b','nii');
+    paradir3 = fullfile(EXPT.data_dir,'subj04b','onsets');
     
     EXPT.subject(4).anatomical.run = 4;
     EXPT.subject(4).anatomical.dicomdir = fullfile(EXPT.data_dir,'subj04','dicoms');
