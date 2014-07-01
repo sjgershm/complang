@@ -1,10 +1,17 @@
-function [m, X] = complang_langloc_reliability(EXPT,model,subj,metric,F,K)
+function [m, X] = complang_langloc_reliability(EXPT,model,subj,mode,metric)
     
-    if nargin < 4 || isempty(metric); metric = 'correlation'; end
+    if nargin < 5 || isempty(metric); metric = 'correlation'; end
     masks = complang02_langloc_roi(EXPT,model,subj);
     
-    if nargin < 5; F = {'stim_sentencesSubsetA_1' 'stim_sentencesSubsetB_1'}; end
-    if nargin < 6; K = 2; end
+    if nargin < 4 || isempty(mode); mode = 'iarpa_sentences'; end
+    switch mode
+        case 'iarpa_sentences'
+            F = {'stim_sentencesSubsetA_1' 'stim_sentencesSubsetB_1'};
+            K = 2;
+        case 'targetwords'
+            F = {'TargetWords1'};
+            K = 5;
+    end
     
     for j = 1:length(F)
         names = fmri_events(EXPT,model,subj,F{j},0);
