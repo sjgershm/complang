@@ -927,8 +927,8 @@ function EXPT = complang02_setup
         
     EXPT.subject(6).anatomical.run = 4;
     EXPT.subject(6).anatomical.dicomdir = fullfile('/mindhive/nklab/projects/MACKEREL/data01','subj02','dicoms_anatomical');
-    EXPT.subject(6).anatomical.niftidir = fullfile('/mindhive/nklab/projects/MACKEREL/data01','subj02','nii_anatomical');
-    
+	EXPT.subject(6).anatomical.niftidir = fullfile(EXPT.data_dir,'subj06','nii');
+	
     EXPT.subject(6).functional(1).run = 3;
     EXPT.subject(6).functional(1).name = 'stim_sentencesSubsetA_1';
     EXPT.subject(6).functional(1).dicomdir = dicomdir1;
@@ -1069,13 +1069,13 @@ function EXPT = complang02_setup
     dicomdir1 = fullfile(EXPT.data_dir,'subj07','dicoms');
     niftidir1 = fullfile(EXPT.data_dir,'subj07','nii');
     paradir1 = fullfile(EXPT.data_dir,'subj07','onsets');
-	    dicomdir2 = fullfile(EXPT.data_dir,'subj07b','dicoms');
+	dicomdir2 = fullfile(EXPT.data_dir,'subj07b','dicoms');
     niftidir2 = fullfile(EXPT.data_dir,'subj07b','nii');
     paradir2 = fullfile(EXPT.data_dir,'subj07b','onsets');
 	
     EXPT.subject(7).anatomical.run = 5;
     EXPT.subject(7).anatomical.dicomdir = fullfile('/mindhive/nklab/projects/MACKEREL/data01','subj01','dicoms');
-    EXPT.subject(7).anatomical.niftidir = fullfile('/mindhive/nklab/projects/MACKEREL/data01','subj01','nii');
+	EXPT.subject(7).anatomical.niftidir = fullfile(EXPT.data_dir,'subj07','nii');
 	
     EXPT.subject(7).functional(1).run = 3;
     EXPT.subject(7).functional(1).name = 'stim_sentencesSubsetA_1';
@@ -1232,7 +1232,7 @@ function EXPT = complang02_setup
 	
     EXPT.subject(8).anatomical.run = 5;
     EXPT.subject(8).anatomical.dicomdir = fullfile('/mindhive/nklab/projects/MACKEREL/data01','subj03','dicoms');
-    EXPT.subject(8).anatomical.niftidir = fullfile('/mindhive/nklab/projects/MACKEREL/data01','subj03','nii');
+	EXPT.subject(8).anatomical.niftidir = fullfile(EXPT.data_dir,'subj08','nii');
 	
     EXPT.subject(8).functional(1).run = 7;
     EXPT.subject(8).functional(1).name = 'stim_reversibles1';
