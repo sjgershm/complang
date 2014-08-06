@@ -1109,7 +1109,7 @@ function EXPT = complang02_setup
     EXPT.subject(5).functional(37).name = 'stim_TargetWords2';
     EXPT.subject(5).functional(37).dicomdir = dicomdir3;
     EXPT.subject(5).functional(37).niftidir = niftidir3;
-    EXPT.subject(5).functional(37).para{1} = fullfile(paradir3,'subj05c_28_ICGT.para');
+    EXPT.subject(5).functional(37).para{1} = fullfile(paradir3,'subj05c_27_ICGT.para');
     %----------------------------------%
     %           SUBJECT 6              
     %----------------------------------%
