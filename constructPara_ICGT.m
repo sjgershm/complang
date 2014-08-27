@@ -7,7 +7,7 @@ function constructPara_ICGT(filename,dat,stimIdx)
     %
     % INPUTS:
     %   filename - name of file to be created, 'subj[subjNum]_[runNum]'
-    %   dat - preloaded dat file created during complang scan for a
+    %   dat - user loaded dat file created during complang scan for a
     %           particular run
     %   stimIdx - premade structure of stim keys pointing to corresponding
     %               analysis indices (see sentences/reversibles/conceptsIdx)
