@@ -11,6 +11,6 @@ function complang_load_beta(EXPT,model,submat,F)
         
         S = EXPT.subject(subj);
         M = ['model',num2str(model)];
-        save(fullfile(EXPT.analysis_dir,S.name,M,['beta_',F]),'beta','masks');
+        save(fullfile(EXPT.analysis_dir,S.name,M,['beta_',F,'_',S.name]),'beta','masks');
         
     end
