@@ -1,10 +1,12 @@
-function complang_load_beta(EXPT,model,submat,F)
+function complang_load_beta(EXPT,model,submat,F,getall)
+    
+    if nargin < 5; getall = 0; end
     
     for subj = submat
         disp(num2str(subj));
     
         masks = complang02_langloc_roi(EXPT,model,subj);
-        names = fmri_events(EXPT,model,subj,F,0);
+        names = fmri_events(EXPT,model,subj,F,getall);
         names(strcmp(names,'cue'))=[];
         names(strcmp(names,'target'))=[];
         beta = fmri_load_beta(EXPT,model,subj,names');
