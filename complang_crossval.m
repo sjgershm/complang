@@ -17,7 +17,7 @@ function rank = complang_crossval(beta,masks)
         include = find(include);
         y1 = y1(include,:); y2 = y2(include,:); J = size(y1,1);
         
-        r = pdist2(y1,y2,'euclidean');
+        r = pdist2(y1,y2,'correlation');
         for j = 1:J
             [~,k]=sort(r(j,:),'descend');
             rank(include(j),i,1)=(find(k==j))/J;
