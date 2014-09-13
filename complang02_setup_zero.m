@@ -11,7 +11,7 @@ function EXPT = complang02_setup
     EXPT.data_dir = '/mindhive/nklab/projects/MACKEREL/data02';
     
     %addpath(genpath('/mindhive/nklab/projects/compositionality_lang/scripts/spm8'));
-    addpath(genpath('/software/spm8/'));
+    addpath(genpath('/software/spm8_r5236/'));
     addpath('/mindhive/nklab/projects/MACKEREL/complang');
     addpath('/mindhive/nklab/projects/MACKEREL/fmri');
 
