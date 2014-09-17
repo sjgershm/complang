@@ -15,7 +15,7 @@ function masks = complang02_langloc_roi(EXPT,model,subj,group)
     y = y>0;
     
     % load SPM mask
-    V = spm_vol(fullfile(EXPT.analysis_dir,S.name,M,'mask.img'));
+    V = spm_vol(fullfile(EXPT.analysis_dir,S.name,M,'run1','mask.img'));
     mask = spm_read_vols(V); mask = mask~=0;
     
     for i = 1:8
