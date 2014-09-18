@@ -14,6 +14,7 @@ function EXPT = complang02_setup
     addpath(genpath('/software/spm8_r5236/'));
     addpath('/mindhive/nklab/projects/MACKEREL/complang');
     addpath('/mindhive/nklab/projects/MACKEREL/fmri');
+    addpath(genpath('/mindhive/nklab/projects/MACKEREL/complang/missing_matlab_funcs/'));
 
     %----------------------------------%
     %           SUBJECT 1              

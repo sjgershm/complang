@@ -6,12 +6,11 @@
 % 2014-09-15 Initial function (Walid)
 
 function complang02_make_langloc_roi(EXPT,model,subj)
-    addpath(genpath('/mindhive/nklab/projects/MACKEREL/complang/missing_matlab_funcs/'));
     names={'S','N'};
     [beta, mask] = fmri_load_beta(EXPT,model,subj,names);
     [~,p] = ttest2(beta{1},beta{2}); 
 	cdir=cd;
-	cd fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'localizers');
+	cd(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'localizers'));
     save('S-N','p','beta');
 	cd cdir;
    
