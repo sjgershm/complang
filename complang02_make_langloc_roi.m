@@ -10,6 +10,7 @@ function complang02_make_langloc_roi(EXPT,model,subj)
     [beta, mask] = fmri_load_beta(EXPT,model,subj,names);
     [~,p] = ttest2(beta{1},beta{2}); 
 	cdir=cd;
+	if ~exist(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'localizers'),'dir'); mkdir(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'localizers')); end
 	cd(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'localizers'));
     save('S-N','p','beta');
 	cd(cdir);
