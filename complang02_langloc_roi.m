@@ -1,4 +1,4 @@
-function masks = complang02_langloc_roi(EXPT,model,subj,group)
+function masks = complang02_langloc_roi(EXPT,model,subj,group,thresh)
     
     % Create subject-specific langloc ROI masks.
     %
@@ -11,7 +11,8 @@ function masks = complang02_langloc_roi(EXPT,model,subj,group)
     S = EXPT.subject(subj);
     M = ['model',num2str(model)];
     load(fullfile(EXPT.analysis_dir,S.name,'localizers','S_N.mat'));
-    y = p<0.001;
+    if nargin < 5; thresh = 0.001; end
+    y = p<thresh;
     
     % load SPM mask
     V = spm_vol(fullfile(EXPT.analysis_dir,S.name,M,'run1','mask.img'));
