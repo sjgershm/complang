@@ -12,7 +12,7 @@ function complang02_make_langloc_roi(EXPT,model,subj)
 	cdir=cd;
 	cd(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'localizers'));
     save('S-N','p','beta');
-	cd cdir;
+	cd(cdir);
    
 % Write to spm structure
 %{ 
