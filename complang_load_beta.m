@@ -1,4 +1,4 @@
-function complang_load_beta(EXPT,model,submat,F,getall)
+function [beta, masks, names] = complang_load_beta(EXPT,model,submat,F,getall)
     
     % Load beta images for each language ROI.
     %
@@ -39,6 +39,8 @@ function complang_load_beta(EXPT,model,submat,F,getall)
         
         S = EXPT.subject(subj);
         M = ['model',num2str(model)];
-        save(fullfile(EXPT.analysis_dir,S.name,M,['beta_',F,'_',S.name]),'beta','masks','names');
+        if nargin > 4
+            save(fullfile(EXPT.analysis_dir,S.name,M,['beta_',F,'_',S.name]),'beta','masks','names');
+        end
         
     end
