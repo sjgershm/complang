@@ -12,7 +12,7 @@ function complang02_make_langloc_roi(EXPT,model,subj)
 	cdir=cd;
 	if ~exist(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'localizers'),'dir'); mkdir(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'localizers')); end
 	cd(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'localizers'));
-    save('S-N','p','beta');
+    save('S_N','p','beta');
 	cd(cdir);
    
 % Write to spm structure
@@ -20,7 +20,7 @@ function complang02_make_langloc_roi(EXPT,model,subj)
     Ic=length(SPM.xCon)+1;    
     for i=1:length(SPM.xCon)
         if isequal(name,SPM.xCon(i).name)
-            response = input('S-N exists, overwrite it? (y/n)','s');
+            response = input('S_N exists, overwrite it? (y/n)','s');
             Ic=i;
             %if ~strcmp(response,'y'); return; end
             if ~isequal('y',response)
