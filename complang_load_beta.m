@@ -22,7 +22,7 @@ function [beta, masks, names] = complang_load_beta(EXPT,model,submat,F,getall)
     %
     % Sam Gershman, September 2014
     
-    if nargin < 4; names = F; end
+    if iscell(F); names = F; end
     if nargin < 5; getall = 0; end
     
     for subj = submat
@@ -30,7 +30,7 @@ function [beta, masks, names] = complang_load_beta(EXPT,model,submat,F,getall)
         
         masks = complang02_langloc_roi(EXPT,model,subj);
         
-        if nargin < 4
+        if ~iscell(F)
             names = fmri_events(EXPT,model,subj,F,getall);
             names(strcmp(names,'cue'))=[];
             names(strcmp(names,'target'))=[];
@@ -39,7 +39,7 @@ function [beta, masks, names] = complang_load_beta(EXPT,model,submat,F,getall)
         
         S = EXPT.subject(subj);
         M = ['model',num2str(model)];
-        if nargin > 4
+        if nargin > 3
             save(fullfile(EXPT.analysis_dir,S.name,M,['beta_',F,'_',S.name]),'beta','masks','names');
         end
         
