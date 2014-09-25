@@ -14,7 +14,7 @@ function complang02_get_betas_words(EXPT,model,subj,type)
     load(filename);
     switch type
         case 'ALL'
-            names=all';
+            names=allwords';
         case 'IARPA'
             names=iarpa';
         case 'STIM'
