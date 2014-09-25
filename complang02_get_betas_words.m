@@ -9,7 +9,9 @@ function complang02_get_betas_words(EXPT,model,subj,type)
     if nargin<4
         type='ALL';
     end
-    load('words.mat');
+    n=strfind(EXPT.analysis_dir, '/');
+    filename = fullfile(EXPT.analysis_dir(1:n(end)),'complang','words.mat');
+    load(filename);
     switch type
         case 'ALL'
             names=all';
@@ -20,10 +22,11 @@ function complang02_get_betas_words(EXPT,model,subj,type)
     end
     
     [beta, mask] = fmri_load_beta(EXPT,model,subj,names);
-    [~,p] = ttest2(beta{1},beta{2}); 
 	cdir=cd;
+    names=names';
 	if ~exist(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'betas'),'dir'); mkdir(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'betas')); end
 	cd(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'betas'));
-    save(['wordBetas_' type],'p','beta');
+    if isequal(type,'ALL'), save('wordBetas','beta','mask','names');
+    else save(['wordBetas_' type],'beta','mask','names'); end
 	cd(cdir);
 end
