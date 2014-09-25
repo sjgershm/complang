@@ -9,7 +9,7 @@ function complang02_get_betas_reversibles(EXPT,model,subj)
     n=strfind(EXPT.analysis_dir, '/');
     filename = fullfile(EXPT.analysis_dir(1:n(end)),'complang','reversibles.mat');
     load(filename);
-    names=sentences';
+    names=reversibles';
     [beta, mask] = fmri_load_beta(EXPT,model,subj,names);
 	cdir=cd;
     names=names';
