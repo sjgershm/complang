@@ -10,7 +10,7 @@ function masks = complang02_langloc_roi(EXPT,model,subj,group,thresh)
     
     S = EXPT.subject(subj);
     M = ['model',num2str(model)];
-    load(fullfile(EXPT.analysis_dir,S.name,'betas','S_N.mat'));
+    load(fullfile(EXPT.analysis_dir,S.name,'localizers','S_N.mat'));
     if nargin < 5; thresh = 0.001; end
     y = p<thresh;
     
