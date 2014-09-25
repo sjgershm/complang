@@ -1,18 +1,17 @@
 % INPUTS:
-%   EXPT:    EXPT file
-%   model:   model number
-%   subj:    subject number
+%   EXPT:    SPM structure for a subject
+%   model:   name of contrast
+%   subj:   subject number
 % 
-% 2014-09-18 updated to work with new analysis dir organization (Walid)
-% 2014-09-15 Initial function (Walid)
+% 2014-09-24 Initial function (Walid)
 
-function complang02_make_langloc_roi(EXPT,model,subj)
+function complang02_get_betas_reversibles(EXPT,model,subj)
     names={'S','N'};
     [beta, mask] = fmri_load_beta(EXPT,model,subj,names);
     [~,p] = ttest2(beta{1},beta{2}); 
 	cdir=cd;
-	if ~exist(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'betas'),'dir'); mkdir(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'betas')); end
-	cd(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'betas'));
+	if ~exist(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'localizers'),'dir'); mkdir(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'localizers')); end
+	cd(fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'localizers'));
     save('S_N','p','beta');
 	cd(cdir);
    
