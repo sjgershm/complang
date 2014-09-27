@@ -1,0 +1,8 @@
+1	LMidPostTemp
+2	LPostTemp
+3	LMidAntTemp
+4	LIFG
+5	LAntTemp
+6	LIFGorb
+7	LAngG
+8	LMFG
