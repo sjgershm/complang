@@ -19,6 +19,8 @@ function complang02_get_betas_words(EXPT,model,subj,type)
             names=iarpa';
         case 'STIM'
             names=stim';
+        case 'STIMWORDS'
+            names=stimwords';
     end
     
     [beta, mask] = fmri_load_beta(EXPT,model,subj,names);
