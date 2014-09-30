@@ -2321,7 +2321,7 @@ function EXPT = complang02_setup
     EXPT.subject(9).functional(7).name = 'stim_sentencesAllSubset_6';
     EXPT.subject(9).functional(7).dicomdir = dicomdir1;
     EXPT.subject(9).functional(7).niftidir = niftidir1;
-    EXPT.subject(9).functional(7).para{3} = fullfile(paradir1,'subj09_17_superloc2conds_Parvizi_c1.para');
+    EXPT.subject(9).functional(7).para{3} = fullfile(paradir1,'subj09_17_ICGT_zero.para');
     
     EXPT.subject(9).functional(8).run = 19;
     EXPT.subject(9).functional(8).name = 'LangLoc';
