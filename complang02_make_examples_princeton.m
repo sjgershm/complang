@@ -6,8 +6,25 @@
 % 2014-09-26 Makes examples and multimasks from beta images for stimwords and sentences
 %
 
-function complang02_make_examples_princeton(EXPT,model,subj)
+function complang02_make_examples_princeton(EXPT,model,subj,site)
 
+    if nargin == 3; site = 'PU'; end
+
+    % hack to bypass use of actual EXPT structure
+    switch site
+      case {'MIT'}
+        EXPT = [];
+        EXPT.TR = 2;
+        EXPT.fwhm = 4;
+        %EXPT.analysis_dir = '/Volumes/Store/Datasets/MIT/analysis_standalone';
+        %EXPT.data_dir     = '/Volumes/Store/Datasets/MIT/data_standalone';
+        EXPT.analysis_dir = '/Volumes/Store/Datasets/MIT/analysis02';
+        EXPT.data_dir     = '/Volumes/Store/Datasets/MIT/data02';
+        EXPT.subject(subj).name = sprintf('subj%1.2d',subj);
+        S = EXPT.subject(subj);
+      case {'PU'}
+        % all good
+    end
 %
 % load betas produced with complang02_get_betas_princeton.m
 %
@@ -18,14 +35,45 @@ function complang02_make_examples_princeton(EXPT,model,subj)
 
     if 1
         % load betas for stimwords - #betas x #voxels in mask
-        inputFile = fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'betas','stimwordsBetas.mat');
+        switch site
+          case {'PU'}
+            inputFile = fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'betas','stimwordsBetas.mat');
+          case {'MIT'}
+            % hack for now
+            %sdir = sprintf('subj%1.2d',subj);
+            %inputFile = fullfile('/Volumes/Store/Datasets/MIT','analysis_standalone',sdir,'betas','wordBetas_STIMWORDS.mat');
+            inputFile = fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'betas','wordBetas_STIMWORDS.mat');            
+        end
+
         load(inputFile); % gets us beta, mask and name
-        betas_stimwords = beta; mask_stimwords = mask; clear beta;
-        
+        betas_stimwords = beta; mask_stimwords = mask; clear beta;            
+        if ~(isequal(names',stimwords) | isequal(names,stimwords))
+            for iw = 1:200; fprintf('%s\t%s\t%d\n',names{iw},stimwords{iw},isequal(names{iw},stimwords{iw}));end
+            fprintf('error: beta file does not contain stimwords!\n');return;
+        else
+            fprintf('loaded beta for words\n');
+        end
+            
         % load betas for sentences - #betas x #voxels in mask
-        inputFile = fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'betas','sentencesBetas.mat');
+        switch site
+          case {'PU'}
+            inputFile = fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'betas','sentencesBetas.mat');
+          case {'MIT'}
+            % hack for now
+            %sdir = sprintf('subj%1.2d',subj);
+            %inputFile = fullfile('/Volumes/Store/Datasets/MIT','analysis_standalone',sdir,'betas','sentenceBetas_STIMSENTENCES.mat');
+            inputFile = fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'betas','sentenceBetas_STIMSENTENCES.mat');            
+        end
+            
         load(inputFile); % gets us beta, mask and name
         betas_sentences = beta; mask_sentences = mask;
+        
+        if ~(isequal(names',sentences) | isequal(names,sentences))
+            for iw = 1:240; fprintf('%s\t%s\t%d\n',names{iw},sentences{iw},isequal(names{iw},sentences{iw}));end
+            fprintf('error: beta file does not contain sentences!\n');return;
+        else
+            fprintf('loaded beta for sentences\n');
+        end
         
         % check the volume mask
         if ~isequal(mask_stimwords,mask_sentences)
@@ -40,13 +88,15 @@ function complang02_make_examples_princeton(EXPT,model,subj)
     end
     volmask_original = volmask;
     indicesIn3D_original = find(volmask(:));
-        
+
+    
     %% load the AAL atlas 
     fpath = which('atlas_aal_resized.nii');
     V = spm_vol(fpath);
     volaal = spm_read_vols(V);
     fpath = which('atlas_aal_resized.txt');
     [discard,labels_aal] = textread(fpath,'%d\t%s','delimiter','\n');
+
     
     %% load the language localizer group parcels
     fpath = which('langloc_parcels.nii');
@@ -54,6 +104,7 @@ function complang02_make_examples_princeton(EXPT,model,subj)
     vollangloc = spm_read_vols(V);
     fpath = which('langloc_parcels.txt');
     [discard,labels_langloc] = textread(fpath,'%d\t%s','delimiter','\n');
+
     
     %% load the language localizer significance masks for this subject
     S = EXPT.subject(subj);
@@ -112,19 +163,42 @@ function complang02_make_examples_princeton(EXPT,model,subj)
     
     nwords = length(stimwords);
     examples_stimwords = zeros(nwords,nvoxels);
+    stimwordsPresent = ones(nwords,1);
+    
     for e = 1:nwords
         tmp = mean(betas_stimwords{e},1); 
-        examples_stimwords(e,:) = tmp(voxelsToUse);
+        if isempty(tmp)
+            stimwordsPresent(e) = 0;
+        else
+            examples_stimwords(e,:) = tmp(voxelsToUse);
+        end
     end
-
+    
     nsentences = length(sentences);
     examples_sentences = zeros(nsentences,nvoxels);
+    sentencesPresent = ones(nsentences,1);
+    
     for e = 1:nsentences
         tmp = mean(betas_sentences{e},1); 
-        examples_sentences(e,:) = tmp(voxelsToUse);
+        if isempty(tmp) 
+            sentencesPresent(e) = 0;
+        else
+            examples_sentences(e,:) = tmp(voxelsToUse);
+        end
     end
 
     %outputFile = fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,mtxt,'examplesGLM.mat');
-    outputFile = fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'examplesGLM.mat');
-    varsToSave3 = 'examples_stimwords examples_sentences sentences stimwords';
+    switch site
+      case {'PU'}
+        outputFile = fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'examplesGLM.mat');
+      case {'MIT'}
+        % hack for now
+        %sdir = sprintf('subj%1.2d',subj);
+        %outputFile = fullfile('/Volumes/Store/Datasets/MIT','analysis_standalone',sdir,'examplesGLM.mat');
+        outputFile = fullfile(EXPT.analysis_dir,EXPT.subject(subj).name,'examplesGLM.mat');
+    end
+
+    varsToSave3 = 'examples_stimwords examples_sentences sentences stimwords stimwordsPresent sentencesPresent';
     eval(sprintf('save %s %s %s %s;',outputFile,varsToSave1,varsToSave2,varsToSave3));
+
+    fprintf('subject %d: %d words %d sentences\n',subj,sum(stimwordsPresent),sum(sentencesPresent));
