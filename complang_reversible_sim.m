@@ -8,8 +8,8 @@ function m = complang_reversible_sim(EXPT,model,subj,metric,group)
     if nargin < 5; group = 0; end
     
     masks = complang02_langloc_roi(EXPT,model,subj,group);
-    names = fmri_events(EXPT,model,subj,'stim_reversibles_1',1);
-    beta = fmri_load_beta(EXPT,model,subj,names(3:end)');
+    load reversibles
+    beta = fmri_load_beta(EXPT,model,subj,reversibles);
     
     b = nan(length(beta),size(beta{1},2));
     for i = 1:length(beta)
