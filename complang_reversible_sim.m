@@ -7,8 +7,8 @@ function m = complang_reversible_sim(EXPT,model,subj,group)
     if nargin < 4; group = 0; end
     
     masks = complang02_langloc_roi(EXPT,model,subj,group);
-    load reversibles
-    beta = fmri_load_beta(EXPT,model,subj,reversibles);
+    load RevCleanList
+    beta = fmri_load_beta(EXPT,model,subj,RevCleanList);
     
     b = nan(length(beta),size(beta{1},2));
     for i = 1:length(beta)
