@@ -1,11 +1,10 @@
-function m = complang_reversible_sim(EXPT,model,subj,metric,group)
+function m = complang_reversible_sim(EXPT,model,subj,group)
     
     % Compute similarity structure for reversible stimuli.
     %
-    % USAGE: m = complang_reversible_sim(EXPT,model,subj,[metric])
+    % USAGE: m = complang_reversible_sim(EXPT,model,subj,[group])
     
-    if nargin < 4; metric = 'correlation'; end
-    if nargin < 5; group = 0; end
+    if nargin < 4; group = 0; end
     
     masks = complang02_langloc_roi(EXPT,model,subj,group);
     load reversibles
@@ -24,7 +23,7 @@ function m = complang_reversible_sim(EXPT,model,subj,metric,group)
     
     for i = 1:length(masks)
         if any(masks{i})
-            D = squareform(pdist(b(:,masks{i}),metric));
+            D = corr(b(:,masks{i})');
             for j = 1:length(u)
                 ix1 = RevAnnot(:,1)==u(j) & RevAnnot(:,2)==1;
                 for k = 2:5
