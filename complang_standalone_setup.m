@@ -10,17 +10,16 @@
     EXPT.analysis_dir = '/mindhive/nklab/projects/MACKEREL/analysis_standalone';
     EXPT.data_dir = '/mindhive/nklab/projects/MACKEREL/data_standalone';
     
+    %addpath(genpath('/mindhive/nklab/projects/compositionality_lang/scripts/spm8'));
     addpath(genpath('/software/spm8_r5236/'));
-	addpath(genpath('/mindhive/nklab/projects/compositionality_lang/scripts/spm8'));
     addpath('/mindhive/nklab/projects/MACKEREL/complang');
     addpath('/mindhive/nklab/projects/MACKEREL/fmri');
     addpath(genpath('/mindhive/nklab/projects/MACKEREL/complang/missing_matlab_funcs/'));
 
-  
-    %----------------------------------%
+   %----------------------------------%
     %           SUBJECT 5              
     %----------------------------------%
-	EXPT.subject(5).name = 'subj05';
+    EXPT.subject(5).name = 'subj05';
     
     dicomdir1 = fullfile(EXPT.data_dir,'subj05','dicoms');
     niftidir1 = fullfile(EXPT.data_dir,'subj05','nii');
