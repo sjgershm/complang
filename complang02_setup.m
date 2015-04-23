@@ -3,13 +3,16 @@ function EXPT = complang02_setup(type)
     % Calls functions that collect information about the 
     %   experiment into EXPT structure.
     %
+    % Optional argument 'type' corresponds with resulting model number of
+    %   EXPT structure
+    %
     % USAGE: EXPT = complang02_setup(type)
-    %   type: optional, 0-4. default is 0
-    %       0: Individual cue, general target
-    %       1: Individual cue, general target zero offset
+    %   type: optional, 1-5. default is 1
+    %       1: Individual cue, general target
     %       2: General cue, general target
-    %       3: General cue, general target zero offset
-    %       4: Princeton version
+    %       3: Individual cue, general target zero offset
+    %       4: General cue, general target zero offset
+    %       5: Princeton version
     %
     % 2015-04-22, Walid Bendris (wbendris@mit.edu): Function created
 	
@@ -18,15 +21,15 @@ function EXPT = complang02_setup(type)
     end
     
     switch type
-        case 0
-            EXPT = complang02_setup_ICGT;
         case 1
-            EXPT = complang02_setup_zero;
+            EXPT = complang02_setup_ICGT;
         case 2
             EXPT = complang02_setup_GCGT;
         case 3
-            EXPT = complang02_setup_GCGT_zero;
+            EXPT = complang02_setup_zero;
         case 4
+            EXPT = complang02_setup_GCGT_zero;
+        case 5
             EXPT = complang02_setup_princeton;
     end
 end
