@@ -7,12 +7,14 @@ function EXPT = complang02_setup(type)
     %   EXPT structure
     %
     % USAGE: EXPT = complang02_setup(type)
-    %   type: optional, 1-5. default is 1
+    %   type: optional, 1-6. default is 1
     %       1: Individual cue, general target
     %       2: General cue, general target
     %       3: Individual cue, general target zero offset
     %       4: General cue, general target zero offset
     %       5: Princeton version
+    %       6: Standalone version
+    %       7: Standalone nii single version
     %
     % 2015-04-22, Walid Bendris (wbendris@mit.edu): Function created
 	
@@ -31,5 +33,9 @@ function EXPT = complang02_setup(type)
             EXPT = complang02_setup_GCGT_zero;
         case 5
             EXPT = complang02_setup_princeton;
+        case 6
+            EXPT = complang02_standalone_setup;
+        case 7
+            EXPT = complang02_standalone_nii_single_setup;
     end
 end
